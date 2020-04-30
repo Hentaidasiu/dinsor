@@ -1,0 +1,20 @@
+<%- include("partials/header") %>
+<%- include("partials/headest") %>
+    <div style="margin-left: 180px; margin-top: 10vh;">
+        <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
+            <form action="/home" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"><strong>Text</strong></label>
+                    <input type="text" name="text" class="form-control">
+                </div>
+                <button class="btn btn-warning" type="submit">Add</button>
+            </form>
+        </div>
+        <% home.forEach(function(board){ %>
+            <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
+                <p><%= board.title %></p>
+                <img src=<%= board.image %>>
+            </div>
+        <% }); %>
+        </div>
+<%- include("partials/footer") %>
