@@ -46,7 +46,7 @@ app.get("/", function (req, res) {
     res.render("landing")
 })
 /*-------------------------------------------*/
-app.get("/Index", function (req, res) {
+app.get("/home", function (req, res) {
     home.find({},function(error, allhome){
         if(error){
             console.log("Error!");
@@ -56,7 +56,7 @@ app.get("/Index", function (req, res) {
         }
     })
 })
-app.post("/Index", function (req, res) {
+app.post("/home", function (req, res) {
     let n_input = req.body.text
     let n_text = { title: n_input }
     home.create(n_text, function(error,newText){
