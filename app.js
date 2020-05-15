@@ -5,6 +5,7 @@ const   express = require("express"),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
         User = require('./model/user');
+        home = require('./model/homeDB');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -23,10 +24,10 @@ passport.use(new passportLocal(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 /*-----------------------------------------------------------------------------------------------*/
-let dinsorSchema = new mongoose.Schema({
-    title: String
-})
-let home = mongoose.model("home",dinsorSchema);
+//let dinsorSchema = new mongoose.Schema({
+//    title: String
+//})
+//let home = mongoose.model("home",dinsorSchema);
 /*-----------------------------------------------------------------------------------------------*/
 // home.create({
 //     title: "First of test"

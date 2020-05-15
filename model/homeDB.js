@@ -4,4 +4,6 @@ let dinsorSchema = new mongoose.Schema({
     title : String
 });
 
-module.exports = mongoose.model('HomeDB', dinsorSchema);
+let home = mongoose.model("home",dinsorSchema);
+
+module.exports = mongoose.model('HDB', dinsorSchema);
