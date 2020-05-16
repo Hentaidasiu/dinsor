@@ -5,6 +5,7 @@ const   express = require("express"),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
         User = require('./model/user');
+        home = require('./model/homeDB');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -28,10 +29,10 @@ app.use(function(req,res,next){
     next();
 })
 /*-----------------------------------------------------------------------------------------------*/
-let dinsorSchema = new mongoose.Schema({
-    title: String
-})
-let home = mongoose.model("home",dinsorSchema);
+// let dinsorSchema = new mongoose.Schema({
+//     title: String
+// })
+// let home = mongoose.model("home",dinsorSchema);
 /*-----------------------------------------------------------------------------------------------*/
 // home.create({
 //     title: "First of test"
@@ -51,7 +52,7 @@ app.get("/", function (req, res) {
     res.render("landing")
 })
 /*-------------------------------------------*/
-app.get("/Index", function (req, res) {
+app.get("/dinsor", function (req, res) {
     home.find({},function(error, allhome){
         if(error){
             console.log("Error!");
@@ -61,7 +62,7 @@ app.get("/Index", function (req, res) {
         }
     })
 })
-app.post("/Index",isLoggedin, function (req, res) {
+app.post("/dinsor",isLoggedin, function (req, res) {
     let n_input = req.body.text
     let n_text = { title: n_input }
     home.create(n_text, function(error,newText){
@@ -70,7 +71,7 @@ app.post("/Index",isLoggedin, function (req, res) {
         }
         else{
             console.log("New Text Add")
-            res.redirect("/Index")
+            res.redirect("/dinsor")
         }
     })
 })
@@ -79,7 +80,7 @@ app.get("/login", function (req, res) {
     res.render("login")
 })
 app.post("/login", passport.authenticate('local',{
-    successRedirect: '/Index',
+    successRedirect: '/dinsor',
     failureRedirect: 'login'
 }),function (req, res) {
     
@@ -101,7 +102,7 @@ app.post("/register", function(req, res){
         }
         
         passport.authenticate('local')(req,res,function(){
-            res.redirect('/Index')
+            res.redirect('/dinsor')
         })
     })
 })
