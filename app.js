@@ -7,6 +7,7 @@ const   express = require("express"),
         User = require('./model/user');
         home = require('./model/homeDB');
 let app = express()
+//eiei
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
 /*-----------------------------------------------------------------------------------------------*/
