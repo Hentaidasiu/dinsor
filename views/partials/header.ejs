@@ -14,7 +14,7 @@
     <body style="background-image: url('/image/web-bg.jpg'); background-size: cover; background-position: fixed; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="height: 8vh;">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand col-lg-4" href="/home">
+                <a class="navbar-brand col-lg-4" href="/Index">
                     <img src="/image/Dinsor_brand.png" width="30" height="30" class="d-inline-block align-top">
                     DinSor
                 </a>
@@ -23,19 +23,33 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <img src="/image/Dinsor_brand.png" width="30" height="30" /*class="col-lg-1"*/>
-                <div class="btn-group col-lg-3">
-                    <button type="button" class="btn btn-danger">Guest</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/login">Login</a>
-                        <a class="dropdown-item" href="/register">Register</a>
-                        <a class="dropdown-item" href="/edit">Edit Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/logout">Logout</a>
-                    </div>
-                </div>
+                <form action="/Index" method="POST">
+                    <% if(!currentUser){ %>
+                        <div class="btn-group col-lg-3">
+                            <button type="button" class="btn btn-danger">Guest</button> <!--เเก้เป็นText-->
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <a class="dropdown-item" href="/register">Register</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="btn-group col-lg-3">
+                            <button type="button" class="btn btn-danger"><%= currentUser.username %></button> <!--เเก้เป็นText-->
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/edit">Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    <% } %>
+                </form>
+                
                 </div>
             </nav>
         </body>
