@@ -5,7 +5,7 @@ const   express = require("express"),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
         User = require('./model/user');
-        home = require('./model/homeDB');
+        board = require('./model/homeDB');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -53,19 +53,19 @@ app.get("/", function (req, res) {
 })
 /*-------------------------------------------*/
 app.get("/dinsor", function (req, res) {
-    home.find({},function(error, allhome){
+    board.find({},function(error, allboard){
         if(error){
             console.log("Error!");
         }
         else{
-            res.render("home",{home:allhome});
+            res.render("home",{board:allboard});
         }
     })
 })
 app.post("/dinsor",isLoggedin, function (req, res) {
     let n_input = req.body.text
     let n_text = { title: n_input }
-    home.create(n_text, function(error,newText){
+    board.create(n_text, function(error,newText){
         if(error){
             console.log("Error!")
         }
