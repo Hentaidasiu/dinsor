@@ -134,7 +134,7 @@ app.get("/GEN_241", function (req, res) {
     res.render("GEN_241")
 })
 /*-------------------------------------------*/
-app.get("/edit", function (req, res) {
+app.get("/edit",isLoggedin ,function (req, res) {
     res.render("edit")
 })
 /*-----------------------------------------------------------------------------------------------*/
