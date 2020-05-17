@@ -28,6 +28,7 @@ app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
 })
+//eiei
 /*-----------------------------------------------------------------------------------------------*/
 // let dinsorSchema = new mongoose.Schema({
 //     title: String
