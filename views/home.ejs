@@ -12,6 +12,7 @@
         </div>
         <% board.forEach(function(board){ %>
             <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
+                <p>Post by : <%= board.p_username %></p><br>
                 <p><%= board.title %></p>
                 <img src=<%= board.image %>>
             </div>

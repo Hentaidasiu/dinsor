@@ -64,7 +64,8 @@ app.get("/dinsor", function (req, res) {
 })
 app.post("/dinsor",isLoggedin, function (req, res) {
     let n_input = req.body.text
-    let n_text = { title: n_input }
+    let user_input = res.locals.currentUser.username
+    let n_text = { title: n_input, p_username: user_input}
     board.create(n_text, function(error,newText){
         if(error){
             console.log("Error!")

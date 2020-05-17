@@ -1,7 +1,8 @@
 const   mongoose = require('mongoose');
 
 let dinsorSchema = new mongoose.Schema({
-    title : String
+    title : String,
+    p_username : String
 });
 
 let board = mongoose.model("board",dinsorSchema);
