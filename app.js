@@ -98,7 +98,7 @@ app.get("/register", function (req, res) {
 })
 app.post("/register", function(req, res){
     if(req.body.password != req.body.c_password){
-        console.log("wrong password")
+        console.log("confirm password error")
         return res.render('register')
     }
     User.register(new User({username: req.body.username}), req.body.password,function(error, user){
