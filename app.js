@@ -6,6 +6,7 @@ const   express = require("express"),
         passportLocalMongoose = require('passport-local-mongoose'),
         User = require('./model/user');
         board = require('./model/homeDB');
+        css224DB = require('./model/CSS224DB');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -114,27 +115,59 @@ app.post("/register", function(req, res){
 })
 //app.get("")
 /*-----------------------------------------------------------------------------------------------*/
-app.get("/CSS_224", function (req, res) {
-    res.render("CSS_224")
+app.get("/dinsor/css_224", function (req, res) {
+    css224DB.find({},function(error, allcss224DB){
+        if(error){
+            console.log("Error!");
+        }
+        else{
+            res.render("CSS_224",{css224DB:allcss224DB});
+        }
+    })
+})
+
+app.get("/dinsor/:id", function(req,res){
+    css224DB.findById(req.params.id, function(error, idpost){
+        if(error){
+            connsole.log("Error")
+        }else{
+            res.render("showdetail",{css224detail:idpost})
+        }
+    })
+})
+
+app.post("/dinsor/css_224",isLoggedin, function (req, res) {
+    let n_input = req.body.text
+    let user_input = res.locals.currentUser.username
+    let n_text = { title: n_input, p_username: user_input}
+    css224DB.create(n_text, function(error,newText){
+        if(error){
+            console.log("Error!")
+        }
+        else{
+            console.log("New Text Add")
+            res.redirect("/dinsor/css_224")
+        }
+    })
 })
 /*-------------------------------------------*/
-app.get("/CSS_226", function (req, res) {
+app.get("/dinsor/CSS_226", function (req, res) {
     res.render("CSS_226")
 })
 /*-------------------------------------------*/
-app.get("/CSS_227", function (req, res) {
+app.get("/dinsor/CSS_227", function (req, res) {
     res.render("CSS_227")
 })
 /*-------------------------------------------*/
-app.get("/CSS_228", function (req, res) {
+app.get("/dinsor/CSS_228", function (req, res) {
     res.render("CSS_228")
 })
 /*-------------------------------------------*/
-app.get("/LNG_224", function (req, res) {
+app.get("/dinsor/LNG_224", function (req, res) {
     res.render("LNG_224")
 })
 /*-------------------------------------------*/
-app.get("/GEN_241", function (req, res) {
+app.get("/dinsor/GEN_241", function (req, res) {
     res.render("GEN_241")
 })
 /*-------------------------------------------*/
