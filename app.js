@@ -4,9 +4,11 @@ const   express = require("express"),
         passport = require('passport'),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
-        User = require('./model/user');
-        board = require('./model/homeDB');
-        css224DB = require('./model/CSS224DB');
+        User = require('./model/user'),
+        board = require('./model/homeDB'),
+        css224DB = require('./model/CSS224DB'),
+        indexRoutes = require('./routes/index'),
+        groupRoutes = require('./routes/group');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -24,12 +26,13 @@ app.use(passport.session())
 passport.use(new passportLocal(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
+app.use('/', indexRoutes);
+app.use('/dinsor', groupRoutes)
 /*-----------------------------------------------------------------------------------------------*/
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
 })
-//eiei
 /*-----------------------------------------------------------------------------------------------*/
 // let dinsorSchema = new mongoose.Schema({
 //     title: String
@@ -49,138 +52,6 @@ app.use(function(req,res,next){
 //         }
 //     }
 // )
-/*-----------------------------------------------------------------------------------------------*/
-app.get("/", function (req, res) {
-    res.render("landing")
-})
-/*-------------------------------------------*/
-app.get("/dinsor", function (req, res) {
-    board.find({},function(error, allboard){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("home",{board:allboard});
-        }
-    })
-})
-app.post("/dinsor",isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let n_text = { title: n_input, p_username: user_input}
-    board.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor")
-        }
-    })
-})
-/*-------------------------------------------*/
-app.get("/login", function (req, res) {
-    res.render("login")
-})
-app.post("/login", passport.authenticate('local',{
-    successRedirect: '/dinsor',
-    failureRedirect: 'login'
-}),function (req, res) {
-    
-})
-
-app.get("/logout", function (req, res) {
-    req.logout()
-    res.redirect("/")
-})
-/*-------------------------------------------*/
-app.get("/register", function (req, res) {
-    res.render("register")
-})
-app.post("/register", function(req, res){
-    if(req.body.password != req.body.c_password){
-        console.log("confirm password error")
-        return res.render('register')
-    }
-    User.register(new User({username: req.body.username}), req.body.password,function(error, user){
-        if(error){
-            console.log(error);
-            return res.render('register')
-        }
-        
-        passport.authenticate('local')(req,res,function(){
-            res.redirect('/dinsor')
-        })
-    })
-})
-//app.get("")
-/*-----------------------------------------------------------------------------------------------*/
-app.get("/dinsor/css_224", function (req, res) {
-    css224DB.find({},function(error, allcss224DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("CSS_224",{css224DB:allcss224DB});
-        }
-    })
-})
-
-app.get("/dinsor/:id", function(req,res){
-    css224DB.findById(req.params.id, function(error, idpost){
-        if(error){
-            connsole.log("Error")
-        }else{
-            res.render("showdetail",{css224detail:idpost})
-        }
-    })
-})
-
-app.post("/dinsor/css_224",isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let n_text = { title: n_input, p_username: user_input}
-    css224DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/css_224")
-        }
-    })
-})
-/*-------------------------------------------*/
-app.get("/dinsor/CSS_226", function (req, res) {
-    res.render("CSS_226")
-})
-/*-------------------------------------------*/
-app.get("/dinsor/CSS_227", function (req, res) {
-    res.render("CSS_227")
-})
-/*-------------------------------------------*/
-app.get("/dinsor/CSS_228", function (req, res) {
-    res.render("CSS_228")
-})
-/*-------------------------------------------*/
-app.get("/dinsor/LNG_224", function (req, res) {
-    res.render("LNG_224")
-})
-/*-------------------------------------------*/
-app.get("/dinsor/GEN_241", function (req, res) {
-    res.render("GEN_241")
-})
-/*-------------------------------------------*/
-app.get("/edit",isLoggedin ,function (req, res) {
-    res.render("edit")
-})
-/*-----------------------------------------------------------------------------------------------*/
-function isLoggedin(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect('/login')
-}
 /*-----------------------------------------------------------------------------------------------*/
 app.listen(3000, function (req, res) {
     console.log("Server is ready")
