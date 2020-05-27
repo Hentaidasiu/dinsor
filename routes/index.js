@@ -3,7 +3,8 @@ const   express = require('express'),
         passport = require('passport'),
         User = require('../model/user'),
         board = require('../model/homeDB'),
-        css224DB = require('../model/CSS224DB');
+        css224DB = require('../model/CSS224DB'),
+        middleware = require('../middleware');
 
 router.use(function(req,res,next){
     res.locals.currentUser = req.user;
@@ -49,16 +50,9 @@ router.post("/register", function(req, res){
     })
 })
 /*-------------------------------------------*/
-router.get("/edit",isLoggedin ,function (req, res) {
+router.get("/edit",middleware.isLoggedin ,function (req, res) {
     res.render("edit")
 })
-/*-------------------------------------------*/
-function isLoggedin(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect('/login')
-}
 
 
 module.exports = router;

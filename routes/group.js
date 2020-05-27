@@ -2,7 +2,9 @@ const   express = require('express'),
         router = express.Router(),
         User = require('../model/user'),
         board = require('../model/homeDB'),
-        css224DB = require('../model/CSS224DB');
+        css224DB = require('../model/CSS224DB'),
+        middleware = require('../middleware');
+
 router.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
@@ -18,7 +20,7 @@ router.get("/", function (req, res) {
         }
     })
 })
-router.post("/",isLoggedin, function (req, res) {
+router.post("/",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
     let n_text = { title: n_input, p_username: user_input}
@@ -44,7 +46,7 @@ router.get("/css_224", function (req, res) {
     })
 })
 
-router.post("/css_224",isLoggedin, function (req, res) {
+router.post("/css_224",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
     let n_text = { title: n_input, p_username: user_input}
@@ -78,13 +80,6 @@ router.get("/LNG_224", function (req, res) {
 router.get("/GEN_241", function (req, res) {
     res.render("GEN_241")
 })
-/*--------------------------------------------------------------------------------------*/
-function isLoggedin(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect('/login')
-}
 /*--------------------------------------------------------------------------------------*/
 router.get("/:id", function(req,res){
     css224DB.findById(req.params.id, function(error, idpost){
