@@ -15,14 +15,14 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="height: 8vh;">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a class="navbar-brand col-lg-4" href="/dinsor">
-                    <img src="/image/Dinsor_brand.png" width="30" height="30" class="d-inline-block align-top">
+                    <img style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30" class="d-inline-block align-top">
                     DinSor
                 </a>
                 <form class="form-inline my-2 my-lg-0 col-lg-4" style="align-items: center;">
                     <input class="form-control col-lg-10" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
-                <img src="/image/Dinsor_brand.png" width="30" height="30" /*class="col-lg-1"*/>
+                <img style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30" /*class="col-lg-1"*/>
                 <form action="/Index" method="POST">
                     <% if(!currentUser){ %>
                         <div class="btn-group col-lg-3">
@@ -49,7 +49,6 @@
                         </div>
                     <% } %>
                 </form>
-                
-                </div>
-            </nav>
-        </body>
+            </div>
+        </nav>
+    </body>

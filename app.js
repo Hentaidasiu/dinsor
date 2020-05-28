@@ -8,7 +8,8 @@ const   express = require("express"),
         board = require('./model/homeDB'),
         css224DB = require('./model/CSS224DB'),
         indexRoutes = require('./routes/index'),
-        groupRoutes = require('./routes/group');
+        groupRoutes = require('./routes/group'),
+        seedDB = require('./seeds');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
@@ -28,6 +29,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 app.use('/', indexRoutes);
 app.use('/dinsor', groupRoutes)
+seedDB()
 /*-----------------------------------------------------------------------------------------------*/
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
