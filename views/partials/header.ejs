@@ -5,13 +5,14 @@
         <title>www.DinSor.com</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../CSS/style_sheet.css">
+        <link rel="stylesheet" href="../public/CSS/style_sheet.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
     <body style="background-image: url('/image/web-bg.jpg'); background-size: cover; background-position: fixed; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
+        
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="height: 8vh;">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a class="navbar-brand col-lg-4" href="/dinsor">
@@ -26,7 +27,7 @@
                 <form action="/Index" method="POST">
                     <% if(!currentUser){ %>
                         <div class="btn-group col-lg-3">
-                            <button type="button" class="btn btn-danger">Guest</button> <!--เเก้เป็นText-->
+                            <button type="button" class="btn btn-danger">Guest</button> 
                             <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
@@ -37,7 +38,7 @@
                         </div>
                     <% }else{ %>
                         <div class="btn-group col-lg-3">
-                            <button type="button" class="btn btn-danger"><%= currentUser.username %></button> <!--เเก้เป็นText-->
+                            <button type="button" class="btn btn-danger"><%= currentUser.username %></button> 
                             <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
@@ -51,13 +52,15 @@
                 </form>
             </div>
         </nav>
-    </body>
         
-    <div class="sidenav desktop-visible">
-        <a href="/dinsor/CSS_224">CSS 224</a>
-        <a href="/dinsor/CSS_226">CSS 226</a>
-        <a href="/dinsor/CSS_227">CSS 227</a>
-        <a href="/dinsor/CSS_228">CSS 228</a>
-        <a href="/dinsor/LNG_224">LNG 224</a>
-        <a href="/dinsor/GEN_241">GEN 241</a>
-    </div>
+        <div class="sidenav desktop-visible">
+            <a href="/dinsor/CSS_224">CSS 224</a>
+            <a href="/dinsor/CSS_226">CSS 226</a>
+            <a href="/dinsor/CSS_227">CSS 227</a>
+            <a href="/dinsor/CSS_228">CSS 228</a>
+            <a href="/dinsor/LNG_224">LNG 224</a>
+            <a href="/dinsor/GEN_241">GEN 241</a>
+        </div>
+    
+        
+    

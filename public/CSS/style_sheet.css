@@ -27,6 +27,13 @@
         margin-left: 180px; /* Same as the width of the sidenav */
     }
 
+    .nav_bar {
+        height: 50px;
+        display: grid;
+        grid-template-columns: 30% 30% 10% 30% ;
+        align-items: center;
+    }
+
     @media screen and (max-height: 450px) {
         .sidenav {
             padding-top: 15px;
