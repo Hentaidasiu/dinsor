@@ -4,6 +4,7 @@ const   express = require("express"),
         passport = require('passport'),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
+        path = require('path');
         User = require('./model/user'),
         board = require('./model/homeDB'),
         css224DB = require('./model/CSS224DB'),
@@ -14,7 +15,7 @@ let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
 /*-----------------------------------------------------------------------------------------------*/
-app.use(express.static("public"))
+app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('express-session')({
