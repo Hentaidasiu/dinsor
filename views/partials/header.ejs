@@ -14,22 +14,24 @@
     <body style="background-image: url('/image/web-bg.jpg'); background-size: cover; background-position: fixed; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
         
         
-            <nav class=" nav_bar" id="navbarSupportedContent">
+            <nav class=" nav_bar" >
 
-                <a class="navbar-brand " href="/dinsor">
-                    <img style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30" class="d-inline-block align-top">
+                <a class="navbar-brand " href="/dinsor" >
+                    <img style="filter: invert(100%); " src="/image/Dinsor_brand.png" width="30" height="30" >
                     DinSor
                 </a>
 
-                <form class="form-inline " style="align-items: center;">
-                    <input class="form-control col-lg-10" type="search" placeholder="Search" aria-label="Search">
+                <form class=" serch_bar" >
+                    <input class="form-control serbar" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success " type="submit">Search</button>
                 </form>
 
-                <figure >
-                    <img style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30" >
-                </figure>
                 
+                <center>
+                    <img class="logo" style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30"  >
+                </center>
+                
+
                 <form action="/Index" method="POST">
                     <% if(!currentUser){ %>
                         <div class="btn-group col-lg-3">
@@ -59,7 +61,7 @@
             </nav>
     
         
-        <div class="sidenav desktop-visible">
+        <div class="sidenav  side_bar">
             <a href="/dinsor/CSS_224">CSS 224</a>
             <a href="/dinsor/CSS_226">CSS 226</a>
             <a href="/dinsor/CSS_227">CSS 227</a>
