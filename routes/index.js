@@ -16,7 +16,7 @@ router.get("/", function (req, res) {
 })
 /*-------------------------------------------*/
 router.get("/login", function (req, res) {
-    res.render("user/login")
+    res.render("login")
 })
 
 router.post("/login", passport.authenticate('local',{
@@ -31,7 +31,7 @@ router.get("/logout", function (req, res) {
 })
 /*-------------------------------------------*/
 router.get("/register", function (req, res) {
-    res.render("user/register")
+    res.render("register")
 })
 router.post("/register", function(req, res){
     if(req.body.password != req.body.c_password){
