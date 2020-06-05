@@ -69,24 +69,24 @@
     }
 
     .content {
-        margin-left: 50px;
-        margin-right: 50px;
+        /* margin-right: 10vw;
+        margin-left: 10vw; */
     }
     
     .post_box {
-        width: 90%; 
+        width: 100%; 
         background-color: rgba(255, 255, 255, 0.9); 
         padding: 10px;
         padding-left: 14px;
         padding-right: 14px;
         border-radius: 6px; 
-        margin: 30px;
+        margin-top: 1.5vh;
         box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
     }
     
     
     .footer_bar {
-        display: inline-block;
+        display: block;
         position: relative;
         background-color:red;
 
