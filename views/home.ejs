@@ -1,21 +1,20 @@
 <%- include("partials/header") %>
-<%- include("partials/headest") %>
-    <!-- <div style="margin-left: 180px; margin-top: 10vh;">
-        <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
-            <form action="/dinsor" method="POST">
-                <div class="form-group">
-                    <label for="exampleInputEmail1"><strong>Create new post here.</strong></label>
-                    <input type="text" name="text" class="form-control">
-                </div>
-                <button class="btn btn-warning" type="submit">Add</button>
-            </form>
-        </div>
-        <% board.reverse().forEach(function(board){ %>
-            <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
-                <p>Post by : <%= board.p_username %></p><br>
-                <p><%= board.title %></p>
-                <img src=<%= board.image %>>
+        <div class="content">
+            <div class="post_box">
+                <form action="/dinsor" method="POST">
+                    <div class="form-group">
+                        <h5>Create new post here.</h5><br>
+                        <input type="text" name="text" class="form-control">
+                    </div>
+                    <button class="btn btn-warning" type="submit">Post</button>
+                </form>
             </div>
-        <% }); %>
-    </div> -->
+            <% board.reverse().forEach(function(board){ %>
+                <div class="post_box">
+                    <p>Post by : <%= board.p_username %></p><br>
+                    <p><%= board.title %></p>
+                    <img src=<%= board.image %>>
+                </div>
+            <% }); %>
+        </div>
 <%- include("partials/footer") %>
