@@ -27,7 +27,7 @@
     }  */
 
     .nav_bar {
-        height: 50px;
+        height: 8vh;
         display: grid;
         grid-template-columns: 20% 50% 5% 25% ;
         align-items: center;
@@ -43,15 +43,19 @@
     }  
     
     .sidebar_content {
-        display: grid;
-        grid-template-columns: 15% 85% ;
+        margin-top: 8vh;
+        
+        /* display: grid;
+        grid-template-columns: 15% 85% ; */
         
     }
     .side_bar {
+        position: fixed;
         align-items: center;
         justify-items: center;
         background-color: #111;
         height: 92vh;
+        width: 15vw;
         box-shadow: rgba(247,247,247, 0.4);
     }
     .side_bar :hover{
@@ -69,8 +73,7 @@
     }
 
     .content {
-        /* margin-right: 10vw;
-        margin-left: 10vw; */
+        margin-left: 15vw;
     }
     
     .post_box {
@@ -86,10 +89,10 @@
     
     
     .footer_bar {
-        display: block;
-        position: relative;
-        background-color:red;
-
+        background-color: red;
+        color: aliceblue;
+        font-style: bold;
+        text-align: right;
     }
     .logo > img{
         align-self: center;
@@ -118,5 +121,11 @@
         }
         .sidebar_content {
             display: block;
+        }
+        .footer_bar {
+            display: none;
+        }
+        .content{
+            margin-left: 0;
         }
     }
