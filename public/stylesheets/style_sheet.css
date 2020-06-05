@@ -51,7 +51,7 @@
         align-items: center;
         justify-items: center;
         background-color: #111;
-        height: auto;
+        height: 92vh;
         box-shadow: rgba(247,247,247, 0.4);
     }
     .side_bar :hover{
@@ -86,7 +86,7 @@
     
     
     .footer_bar {
-        display: block;
+        display: inline-block;
         position: relative;
         background-color:red;
 
