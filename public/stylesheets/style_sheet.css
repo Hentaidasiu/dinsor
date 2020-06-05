@@ -52,19 +52,22 @@
         align-items: center;
         justify-items: center;
         background-color: #111;
-        padding-top: 20px;
         height: 92vh;
-       
-        
+    }
+    .side_bar :hover{
+        color: black;
+        font-style: bold;
+        background: rgb(247,247,247);
+        background: linear-gradient(173deg, rgba(247,247,247,1) 47%, rgba(48,219,48,1) 100%);
     }
     .side_bar a {
         padding: 6px 8px 6px 16px;
-        
         text-decoration: none;
         font-size: 25px;
         color: #818181;
         display: block;
     }
+
     .content {
         margin-left: 50px;
         margin-right: 50px;
