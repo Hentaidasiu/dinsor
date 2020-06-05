@@ -29,7 +29,7 @@
     .nav_bar {
         height: 50px;
         display: grid;
-        grid-template-columns: 25% 45% 5% 25% ;
+        grid-template-columns: 20% 50% 5% 25% ;
         align-items: center;
         background: rgb(247,247,247);
         box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
@@ -102,13 +102,17 @@
     }
     
     
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 800px) {
         .side_bar {
             display: none;    
         }
         .logo {
             display: none;
         }
-   
+        .prof {
+            display: none;
+        }
+        .serch_bar{
+            font-size: smaller;
+        }
     }
-    
