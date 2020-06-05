@@ -33,9 +33,7 @@
         align-items: center;
         background: rgb(247,247,247);
         box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
-        
 
-        
     }
     .nav_bar_r{
         display: grid;    
@@ -53,7 +51,7 @@
         align-items: center;
         justify-items: center;
         background-color: #111;
-        height: 92vh;
+        height: auto;
         box-shadow: rgba(247,247,247, 0.4);
     }
     .side_bar :hover{
@@ -88,7 +86,8 @@
     
     
     .footer_bar {
-        
+        display: block;
+        position: relative;
         background-color:red;
 
     }
@@ -116,5 +115,8 @@
         }
         .serch_bar{
             font-size: smaller;
+        }
+        .sidebar_content {
+            display: block;
         }
     }
