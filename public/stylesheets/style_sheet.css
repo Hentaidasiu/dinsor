@@ -33,6 +33,7 @@
         align-items: center;
         background: rgb(247,247,247);
         box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
+        
 
         
     }
@@ -53,6 +54,7 @@
         justify-items: center;
         background-color: #111;
         height: 92vh;
+        box-shadow: rgba(247,247,247, 0.4);
     }
     .side_bar :hover{
         color: black;
