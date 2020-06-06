@@ -10,29 +10,38 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f6fde7d26f.js" crossorigin="anonymous"></script>
     </head>
-    <body style="background-image: url('/image/web-bg.jpg'); background-size: cover; background-position: fixed; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
+    <body style="background-image: url('/image/wep-bg1.jpg'); background-size: cover; background-position: fixed; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
         
         
         <nav class=" nav_bar fixed-top" >
 
             <a class="navbar-brand " href="/dinsor" >
-                <img style="filter: invert(100%); " src="/image/Dinsor_brand.png" width="30" height="30" >
-                <span class="prof">DinSor</span>
+                <center><img style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="40" height="40" >
+                <span class="prof">DinSor</span></center>
             </a>
 
-            <form class=" serch_bar" >
-                <input class="serbar" type="search" placeholder="Search" aria-label="Search">
-                <button class="" type="submit">Search</button>
+            <form class=" search_bar" >
+                <input type="search" placeholder="Search" aria-label="Search">
+                <button type="submit"><i class="fa fa-search"></i></button>
             </form>
+            
+            <div class="hidden">
+                <i type="button" class="dropdown-toggle-split fas fa-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item search_bar">
+                        <input type="search" placeholder="Search" aria-label="Search">
+                        <button class="" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
 
-            <img class="logo prof" style="filter: invert(100%);" src="/image/Dinsor_brand.png" width="30" height="30"  >
-
-            <form action="/Index" method="POST">
+            <form action="/Index" method="POST" class="user_icon">
                 <% if(!currentUser){ %>
                     <div class="btn-group col-lg-3">
-                        <button type="button" class="btn btn-danger">Guest</button> 
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="guest">Guest</button> 
+                        <button type="button" class=" guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
@@ -42,8 +51,8 @@
                     </div>
                 <% }else{ %>
                     <div class="btn-group col-lg-3">
-                        <button type="button" class="btn btn-danger"><%= currentUser.username %></button> 
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="guest"><%= currentUser.username %></button> 
+                        <button type="button" class="guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
@@ -54,6 +63,33 @@
                     </div>
                 <% } %>
 
+            </form>
+            <form action="/Index" method="POST" class="hidden">
+            <% if(!currentUser){ %>
+                <i type="button" class="dropdown-toggle-split fas fa-user-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/register">Register</a>
+                </div>
+            <% }else{ %>
+                <i type="button" class="dropdown-toggle-split fas fa-user-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/edit">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div> 
+            <% } %>
+            </form>
+            <form action="/Index" method="POST" class="hidden">
+            <i type="button" class="dropdown-toggle-split fas fa-book" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dinsor/CSS_224">CSS 224</a>
+                    <a class="dropdown-item" href="/dinsor/CSS_226">CSS 226</a>
+                    <a class="dropdown-item" href="/dinsor/CSS_227">CSS 227</a>
+                    <a class="dropdown-item" href="/dinsor/CSS_228">CSS 228</a>
+                    <a class="dropdown-item" href="/dinsor/LNG_224">LNG 224</a>
+                    <a class="dropdown-item" href="/dinsor/GEN_241">GEN 241</a>
+                </div>
             </form>
         </nav>
     
