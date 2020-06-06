@@ -7,10 +7,15 @@ const   express = require("express"),
         path = require('path');
         User = require('./model/user'),
         board = require('./model/homeDB'),
-        css224DB = require('./model/CSS224DB'),
         indexRoutes = require('./routes/index'),
         groupRoutes = require('./routes/group'),
         seedDB = require('./seeds');
+const   css224DB = require('./model/CSS224DB'),
+        css226DB = require('./model/CSS226DB'),
+        css227DB = require('./model/CSS227DB'),
+        css228DB = require('./model/CSS228DB'),
+        gen241DB = require('./model/GEN241DB'),
+        lng224DB = require('./model/LNG224DB');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
