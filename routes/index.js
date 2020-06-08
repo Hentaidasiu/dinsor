@@ -6,10 +6,10 @@ const   express = require('express'),
         css224DB = require('../model/CSS224DB'),
         middleware = require('../middleware');
 
-// router.use(function(req,res,next){
-//     res.locals.currentUser = req.user;
-//     next();
-// })
+router.use(function(req,res,next){
+    res.locals.currentUser = req.user;
+    next();
+})
 
 router.get("/", function (req, res) {
     res.render("landing")

@@ -10,10 +10,10 @@ const   express = require('express'),
         lng224DB = require('../model/LNG224DB'),
         middleware = require('../middleware');
 
-// router.use(function(req,res,next){
-//     res.locals.currentUser = req.user;
-//     next();
-// })
+router.use(function(req,res,next){
+    res.locals.currentUser = req.user;
+    next();
+})
 /*-------------------------------------------*/
 router.get("/", function (req, res) {
     board.find({},function(error, allboard){
