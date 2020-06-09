@@ -4,7 +4,8 @@ const   express = require("express"),
         passport = require('passport'),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
-        path = require('path');
+        path = require('path'),
+        flash = require('connect-flash'),
         User = require('./model/user'),
         board = require('./model/homeDB'),
         indexRoutes = require('./routes/index'),
@@ -30,15 +31,17 @@ app.use(require('express-session')({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 passport.use(new passportLocal(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
-app.use('/', indexRoutes);
-app.use('/dinsor', groupRoutes)
 seedDB()
+
 /*-----------------------------------------------------------------------------------------------*/
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 })
 /*-----------------------------------------------------------------------------------------------*/
@@ -61,6 +64,8 @@ app.use(function(req,res,next){
 //     }
 // )
 /*-----------------------------------------------------------------------------------------------*/
+app.use('/', indexRoutes);
+app.use('/dinsor', groupRoutes)
 app.listen(3000, function (req, res) {
     console.log("Server is ready")
 })

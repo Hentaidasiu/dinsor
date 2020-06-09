@@ -21,13 +21,14 @@ router.get("/login", function (req, res) {
 
 router.post("/login", passport.authenticate('local',{
     successRedirect: '/dinsor',
-    failureRedirect: 'login'
-    }),function (req, res) {
+    failureRedirect: '/login'
+    }),function (req, res) {  
 })
 
 router.get("/logout", function (req, res) {
     req.logout()
-    res.redirect("/")
+    req.flash('success','You log out success')
+    res.redirect("/dinsor")
 })
 /*-------------------------------------------*/
 router.get("/register", function (req, res) {
@@ -45,6 +46,7 @@ router.post("/register", function(req, res){
         }
         
         passport.authenticate('local')(req,res,function(){
+            req.flash('success','Welcome to our team'+user.username)
             res.redirect('/dinsor')
         })
     })

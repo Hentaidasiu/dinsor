@@ -92,6 +92,8 @@
                 </div>
             </form>
         </nav>
+
+        
     
         <div class="sidebar_content">
             <div class=" side_bar ">
@@ -101,6 +103,18 @@
                 <a href="/dinsor/CSS_228">CSS 228</a>
                 <a href="/dinsor/LNG_224">LNG 224</a>
                 <a href="/dinsor/GEN_241">GEN 241</a>
+            </div>
+            <div class='container content'>
+                <% if (error && error.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                <% if (success && success.length > 0) { %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+                <% } %>
             </div>
 
 
