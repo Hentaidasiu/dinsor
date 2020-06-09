@@ -21,7 +21,9 @@ router.get("/login", function (req, res) {
 
 router.post("/login", passport.authenticate('local',{
     successRedirect: '/dinsor',
-    failureRedirect: '/login'
+    successFlash: 'Welcome!',
+    failureRedirect: '/login',
+    failureFlash:  true
     }),function (req, res) {  
 })
 
@@ -46,7 +48,7 @@ router.post("/register", function(req, res){
         }
         
         passport.authenticate('local')(req,res,function(){
-            req.flash('success','Welcome to our team'+user.username)
+            req.flash('success','Welcome to our team :'+ user.username)
             res.redirect('/dinsor')
         })
     })
