@@ -25,16 +25,25 @@ router.get("/", function (req, res) {
 router.post("/",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    board.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor")
-        }
-    })
+    board.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor")
 })
 /*-------------------------------------------*/
 router.get("/CSS_224", function (req, res) {
@@ -51,16 +60,34 @@ router.get("/CSS_224", function (req, res) {
 router.post("/CSS_224",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    css224DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/css_224")
-        }
-    })
+    // css224DB.create(n_text, function(error,newText){
+    //     if(error){
+    //         console.log("Error!")
+    //     }
+    //     else{
+    //         console.log("New Text Add")
+    //         res.redirect("/dinsor/css_224")
+    //     }
+    // })
+    css224DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/CSS_224")
 })
 /*-------------------------------------------*/
 router.get("/CSS_226", function (req, res) {
@@ -77,16 +104,25 @@ router.get("/CSS_226", function (req, res) {
 router.post("/CSS_226",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    css226DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/css_226")
-        }
-    })
+    css226DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/CSS_226")
 })
 /*-------------------------------------------*/
 router.get("/CSS_227", function (req, res) {
@@ -103,16 +139,25 @@ router.get("/CSS_227", function (req, res) {
 router.post("/CSS_227",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    css227DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/CSS_227")
-        }
-    })
+    css227DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/CSS_227")
 })
 /*-------------------------------------------*/
 router.get("/CSS_228", function (req, res) {
@@ -129,16 +174,25 @@ router.get("/CSS_228", function (req, res) {
 router.post("/CSS_228",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    css228DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/CSS_228")
-        }
-    })
+    css228DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/CSS_228")
 })
 /*-------------------------------------------*/
 router.get("/LNG_224", function (req, res) {
@@ -155,16 +209,25 @@ router.get("/LNG_224", function (req, res) {
 router.post("/LNG_224",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    lng224DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/LNG_224")
-        }
-    })
+    lng224DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/LNG_224")
 })
 /*-------------------------------------------*/
 router.get("/GEN_241", function (req, res) {
@@ -181,16 +244,25 @@ router.get("/GEN_241", function (req, res) {
 router.post("/GEN_241",middleware.isLoggedin, function (req, res) {
     let n_input = req.body.text
     let user_input = res.locals.currentUser.username
+    let user_id = res.locals.currentUser
     let n_text = { title: n_input, p_username: user_input}
-    gen241DB.create(n_text, function(error,newText){
-        if(error){
-            console.log("Error!")
-        }
-        else{
-            console.log("New Text Add")
-            res.redirect("/dinsor/GEN_241")
-        }
-    })
+    gen241DB.create(n_text, function(err,post){
+        User.findOne({_id: user_id},function(err, foundUser){
+            if(err){
+                console.log(err);
+            } else {
+                foundUser.posts.push(post);
+                foundUser.save(function(err, data){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+    res.redirect("/dinsor/GEN_241")
 })
 /*--------------------------------------------------------------------------------------*/
 router.get("/:id", function(req,res){

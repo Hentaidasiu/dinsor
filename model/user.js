@@ -3,7 +3,13 @@ const   mongoose = require('mongoose'),
 
 let userSchema = new mongoose.Schema({
     username : String,
-    password : String
+    password : String,
+    posts : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "css224DB"
+        }
+    ]
 });
 
 userSchema.plugin(passportLocalMongoose);
