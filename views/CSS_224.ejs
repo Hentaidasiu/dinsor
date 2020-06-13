@@ -12,9 +12,9 @@
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% css224DB.reverse().forEach(function(css224DB){ %>
+    <% css224DB.forEach(function(css224DB){ %>
         <div class="post_box">
-            <p>Post by : <%= css224DB.p_username %></p><br>
+            <p>Post by : <%= css224DB.owner_id.username %></p><br>
             <p><%= css224DB.title %></p>
             <img src=<%= css224DB.image %>>
             <a href="/dinsor/<%= css224DB._id %>" class="btn btn-warning">More detail</a>

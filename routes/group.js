@@ -1,279 +1,470 @@
 const   express = require('express'),
         router = express.Router(),
-        User = require('../model/user'),
-        board = require('../model/homeDB'),
-        css224DB = require('../model/CSS224DB'),
-        css226DB = require('../model/CSS226DB'),
-        css227DB = require('../model/CSS227DB'),
-        css228DB = require('../model/CSS228DB'),
-        gen241DB = require('../model/GEN241DB'),
-        lng224DB = require('../model/LNG224DB'),
         middleware = require('../middleware');
+        mongoose = require("mongoose")
+const   user = require('../model/user'),
+        subject = require('../model/subject'),
+        post = require('../model/post'),
+        comment = require('../model/comment');
 
 
 /*-------------------------------------------*/
-router.get("/", function (req, res) {
-    board.find({},function(error, allboard){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("home",{board:allboard});
-        }
-    })
-})
-router.post("/",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    board.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "home"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("home",{board: response});
+})
+router.post("/",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3b942f045132348e42e56',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor")
 })
 /*-------------------------------------------*/
-router.get("/CSS_224", function (req, res) {
-    css224DB.find({},function(error, allcss224DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("CSS_224",{css224DB:allcss224DB});
-        }
-    })
-})
-
-router.post("/CSS_224",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    // css224DB.create(n_text, function(error,newText){
-    //     if(error){
-    //         console.log("Error!")
-    //     }
-    //     else{
-    //         console.log("New Text Add")
-    //         res.redirect("/dinsor/css_224")
-    //     }
-    // })
-    css224DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/CSS_224", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "css224"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("CSS_224",{css224DB: response});
+})
+router.post("/CSS_224",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba399a2faa29f4f62149',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/CSS_224")
 })
 /*-------------------------------------------*/
-router.get("/CSS_226", function (req, res) {
-    css226DB.find({},function(error, allcss226DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("CSS_226",{css226DB:allcss226DB});
-        }
-    })
-})
-
-router.post("/CSS_226",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    css226DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/CSS_226", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "css226"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("CSS_226",{css226DB: response});
+})
+router.post("/CSS_226",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba3d889d531ff430dd2b',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/CSS_226")
 })
 /*-------------------------------------------*/
-router.get("/CSS_227", function (req, res) {
-    css227DB.find({},function(error, allcss227DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("CSS_227",{css227DB:allcss227DB});
-        }
-    })
-})
-
-router.post("/CSS_227",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    css227DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/CSS_227", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "css227"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("CSS_227",{css227DB: response});
+})
+router.post("/CSS_227",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba404d47e20238a191c3',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/CSS_227")
 })
 /*-------------------------------------------*/
-router.get("/CSS_228", function (req, res) {
-    css228DB.find({},function(error, allcss228DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("CSS_228",{css228DB:allcss228DB});
-        }
-    })
-})
-
-router.post("/CSS_228",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    css228DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/CSS_228", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "css228"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("CSS_228",{css228DB: response});
+})
+router.post("/CSS_228",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba423203304c8c7e9d76',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/CSS_228")
 })
 /*-------------------------------------------*/
-router.get("/LNG_224", function (req, res) {
-    lng224DB.find({},function(error, alllng224DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("LNG_224",{lng224DB:alllng224DB});
-        }
-    })
-})
-
-router.post("/LNG_224",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    lng224DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/LNG_224", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "lng224"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("LNG_224",{lng224DB: response});
+})
+router.post("/LNG_224",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba4c08ca9f41c8fa0269',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/LNG_224")
 })
 /*-------------------------------------------*/
-router.get("/GEN_241", function (req, res) {
-    gen241DB.find({},function(error, allgen241DB){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            res.render("GEN_241",{gen241DB:allgen241DB});
-        }
-    })
-})
-
-router.post("/GEN_241",middleware.isLoggedin, function (req, res) {
-    let n_input = req.body.text
-    let user_input = res.locals.currentUser.username
-    let user_id = res.locals.currentUser
-    let n_text = { title: n_input, p_username: user_input}
-    gen241DB.create(n_text, function(err,post){
-        User.findOne({_id: user_id},function(err, foundUser){
-            if(err){
-                console.log(err);
-            } else {
-                foundUser.posts.push(post);
-                foundUser.save(function(err, data){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
-                });
+router.get("/GEN_241", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
             }
-        });
-    });
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $match: {
+                "subject_id.subject_name" : "gen241"
+            }
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $sort: {
+                "create_date": -1
+            }
+        }
+    ])
+    // console.log(response)
+    res.render("GEN_241",{gen241DB: response});
+})
+router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
+    await post.create({
+        subject_id : '5ee3ba58c5168331f4498d5f',
+        owner_id : res.locals.currentUser._id,
+        title : req.body.text,
+        content : "TEST",
+        create_date : new Date()
+    })
     res.redirect("/dinsor/GEN_241")
 })
 /*--------------------------------------------------------------------------------------*/
-router.get("/:id", function(req,res){
-    css224DB.findById(req.params.id, function(error, idpost){
-        if(error){
-            connsole.log("Error")
-        }else{
-            res.render("showdetail",{css224detail:idpost})
+// router.get("/:id", function(req,res){
+//     User.findById(req.params.id).populate('css224').exec (function(error, idpost){
+//         if(error){
+//             connsole.log("Error")
+//         }else{
+//             res.render("showdetail",{detail:idpost})
+//         }
+//     })
+//     // User.findOne(req.params.id).populate('css224').exec(function(err, idpost){
+//     //     if(err){
+//     //         console.log(err);
+//     //     } else {
+//     //         res.render("showdetail",{detail:idpost})
+//     //     }
+//     // });
+// })
+router.get("/:id", async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "_id",
+                from: "comment",
+                foreignField: "post_id",
+                as: "comment"
+            }
+        },
+        // {
+        //     $match: {
+        //         "comment.post_id" : req.params.id
+        //     }
+        // },
+        {
+            $sort: {
+                "create_date": -1
+            }
         }
-    })
+    ])
+    // console.log(req.params.id)
+    console.log(response)
+    res.render("showdetail",{detail: response});
 })
-
+// router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
+//     await post.create({
+//         subject_id : '5ee3ba58c5168331f4498d5f',
+//         owner_id : res.locals.currentUser._id,
+//         title : req.body.text,
+//         content : "TEST",
+//         create_date : new Date()
+//     })
+//     res.redirect("/dinsor/GEN_241")
+// })
+// comment.create({
+//     post_id : '5ee4295bceadfa2194968190',
+//     owner_id : '5ee3f2abcab03b3018c721ef',
+//     comment :'comment test',
+//     create_date : new Date()
+// })
 
 module.exports = router;

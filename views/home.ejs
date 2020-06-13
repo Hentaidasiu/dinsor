@@ -12,9 +12,9 @@
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% board.reverse().forEach(function(board){ %>
+    <% board.forEach(function(board){ %>
         <div class="post_box">
-            <p>Post by : <%= board.p_username %></p><br>
+            <p>Post by : <%= board.owner_id.username %></p><br>
             <p><%= board.title %></p>
             <img src=<%= board.image %>>
         </div>

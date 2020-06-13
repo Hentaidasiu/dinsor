@@ -3,15 +3,8 @@ const   mongoose = require('mongoose'),
 
 let userSchema = new mongoose.Schema({
     username : String,
-    password : String,
-    posts : [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "css224DB"
-        }
-    ]
 });
 
 userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);

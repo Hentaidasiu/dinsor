@@ -1,41 +1,37 @@
 const   express = require("express"),
-        bodyParser = require("body-parser"),
-        mongoose = require("mongoose"),
-        passport = require('passport'),
-        passportLocal = require('passport-local'),
-        passportLocalMongoose = require('passport-local-mongoose'),
-        path = require('path'),
-        flash = require('connect-flash'),
-        User = require('./model/user'),
-        board = require('./model/homeDB'),
-        indexRoutes = require('./routes/index'),
-        groupRoutes = require('./routes/group'),
-        seedDB = require('./seeds');
-const   css224DB = require('./model/CSS224DB'),
-        css226DB = require('./model/CSS226DB'),
-        css227DB = require('./model/CSS227DB'),
-        css228DB = require('./model/CSS228DB'),
-        gen241DB = require('./model/GEN241DB'),
-        lng224DB = require('./model/LNG224DB');
+    bodyParser = require("body-parser"),
+    mongoose = require("mongoose"),
+    passport = require('passport'),
+    passportLocal = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
+    path = require('path'),
+    flash = require('connect-flash'),
+    indexRoutes = require('./routes/index'),
+    groupRoutes = require('./routes/group');
+    // seedDB = require('./seeds');
+const   user = require('./model/user'),
+    subject = require('./model/subject'),
+    post = require('./model/post'),
+    comment = require('./model/comment');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
-mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
 /*-----------------------------------------------------------------------------------------------*/
 app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('express-session')({
-    secret: 'CSS227',
+    secret: 'NoOneKnow',
     resave: false,
     saveUninitialized: false
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-passport.use(new passportLocal(User.authenticate()))
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
-seedDB()
+passport.use(new passportLocal(user.authenticate()))
+passport.serializeUser(user.serializeUser())
+passport.deserializeUser(user.deserializeUser())
+// seedDB()
 
 /*-----------------------------------------------------------------------------------------------*/
 app.use(function(req,res,next){

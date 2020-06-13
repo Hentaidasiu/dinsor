@@ -1,15 +1,15 @@
 const   express = require('express'),
         router = express.Router(),
         passport = require('passport'),
-        User = require('../model/user'),
-        board = require('../model/homeDB'),
-        css224DB = require('../model/CSS224DB'),
         middleware = require('../middleware');
-
-router.use(function(req,res,next){
-    res.locals.currentUser = req.user;
-    next();
-})
+const   user = require('../model/user'),
+        subject = require('../model/subject'),
+        post = require('../model/post'),
+        comment = require('../model/comment');
+// router.use(function(req,res,next){
+//     res.locals.currentUser = req.user;
+//     next();
+// })
 
 router.get("/", function (req, res) {
     res.render("landing")
@@ -24,12 +24,12 @@ router.post("/login", passport.authenticate('local',{
     successFlash: 'Welcome!',
     failureRedirect: '/login',
     failureFlash:  true
-    }),function (req, res) {  
-})
+    }))
 
 router.get("/logout", function (req, res) {
     req.logout()
     req.flash('success','You log out success')
+    console.log("log out success")
     res.redirect("/dinsor")
 })
 /*-------------------------------------------*/
@@ -37,11 +37,12 @@ router.get("/register", function (req, res) {
     res.render("register")
 })
 router.post("/register", function(req, res){
+    console.log(req.body)
     if(req.body.password != req.body.c_password){
         console.log("confirm password error")
         return res.render('register')
     }
-    User.register(new User({username: req.body.username}), req.body.password,function(error, user){
+    user.register(new user({username: req.body.username}), req.body.password,function(error, user){
         if(error){
             console.log(error);
             return res.render('register')

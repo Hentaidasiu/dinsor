@@ -12,9 +12,9 @@
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% lng224DB.reverse().forEach(function(lng224DB){ %>
+    <% lng224DB.forEach(function(lng224DB){ %>
         <div class="post_box">
-            <p>Post by : <%= lng224DB.p_username %></p><br>
+            <p>Post by : <%= lng224DB.owner_id.username %></p><br>
             <p><%= lng224DB.title %></p>
             <img src=<%= lng224DB.image %>>
         </div>

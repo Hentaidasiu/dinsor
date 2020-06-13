@@ -12,9 +12,9 @@
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% css226DB.reverse().forEach(function(css226DB){ %>
+    <% css226DB.forEach(function(css226DB){ %>
         <div class="post_box">
-            <p>Post by : <%= css226DB.p_username %></p><br>
+            <p>Post by : <%= css226DB.owner_id.username %></p><br>
             <p><%= css226DB.title %></p>
             <img src=<%= css226DB.image %>>
         </div>
