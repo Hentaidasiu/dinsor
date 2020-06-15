@@ -6,12 +6,13 @@ const   user = require('../model/user'),
 
 const POST = async() => {
     try{
-    const connect =  await mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true})
+    const connect =  await mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true, useUnifiedTopology: true})
     const response = await user.create({
-        username : 'amin',
-        password : '1234',
-        create : new Date()
-    })
+            post_id : '5ee4295bceadfa2194968190',
+            owner_id : '5ee3f2abcab03b3018c721ef',
+            comment :'hello',
+            create_date : new Date()
+        })
     console.log(response)
     mongoose.connection.close()
     }

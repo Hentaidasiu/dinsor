@@ -394,7 +394,7 @@ router.get("/GEN_241", async function (req, res) {
             }
         }
     ])
-    // console.log(response)
+    console.log(response)
     res.render("GEN_241",{gen241DB: response});
 })
 router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
@@ -408,24 +408,43 @@ router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
     res.redirect("/dinsor/GEN_241")
 })
 /*--------------------------------------------------------------------------------------*/
-// router.get("/:id", function(req,res){
-//     User.findById(req.params.id).populate('css224').exec (function(error, idpost){
-//         if(error){
-//             connsole.log("Error")
-//         }else{
-//             res.render("showdetail",{detail:idpost})
-//         }
-//     })
-//     // User.findOne(req.params.id).populate('css224').exec(function(err, idpost){
-//     //     if(err){
-//     //         console.log(err);
-//     //     } else {
-//     //         res.render("showdetail",{detail:idpost})
-//     //     }
-//     // });
-// })
 router.get("/:id", async function (req, res) {
+    // let popcomment = await comment.aggregate([
+    //     // {
+    //     //     $lookup:
+    //     //     {
+    //     //         localField: "post_id",
+    //     //         from: "post",
+    //     //         foreignField: "_id",
+    //     //         as: "post_id"
+    //     //     }
+    //     // }
+    //     {
+    //         $match: {
+    //             "post_id" : req.params.id
+    //         }
+    //     },
+    // ])
+    // console.log(popcomment)
     let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "subject_id",
+                from: "subjects",
+                foreignField: "_id",
+                as: "subject_id"
+            }
+        },
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
         {
             $lookup:
             {
@@ -435,9 +454,21 @@ router.get("/:id", async function (req, res) {
                 as: "comment"
             }
         },
+        {
+            $unwind: "$subject_id"
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
         // {
         //     $match: {
-        //         "comment.post_id" : req.params.id
+        //         "post._id" : req.params.id
         //     }
         // },
         {

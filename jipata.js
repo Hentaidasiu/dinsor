@@ -16,16 +16,10 @@ const   user = require('./model/user'),
 
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true});
 
-post.create({
-    subject_name : 'gen241'
-    },
-    function(error, home){
-        if(error){
-            console.log("Error!");
-        }
-        else{
-            console.log("Added!!");
-            console.log(home);
-        }
+comment.create({
+        post_id : '5ee4295bceadfa2194968190',
+        owner_id : '5ee3f2abcab03b3018c721ef',
+        comment :'hello',
+        create_date : new Date()
     }
 )

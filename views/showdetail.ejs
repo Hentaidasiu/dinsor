@@ -1,7 +1,11 @@
 <%- include("partials/header") %>
-    <div style="margin-left: 180px; margin-top: 10vh;">
-        <div style="width: 90%; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; margin: 1cm;">
-            <h1><%= detail %></h1>
+<div class="content">
+    <% detail.forEach(function(detail){ %>
+        <div class="post_box">
+            <p>Post by : <%= detail.owner_id.username %></p><br>
+            <p><%= detail.title %></p>
+            <img src=<%= detail.image %>>
         </div>
-    </div>
+    <% }); %>
+</div>
 <%- include("partials/footer") %>
