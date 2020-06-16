@@ -1,7 +1,8 @@
 const   express = require('express'),
         router = express.Router(),
-        middleware = require('../middleware');
-        mongoose = require("mongoose")
+        middleware = require('../middleware'),
+        mongoose = require("mongoose"),
+        util = require('util');
 const   user = require('../model/user'),
         subject = require('../model/subject'),
         post = require('../model/post'),
@@ -409,24 +410,12 @@ router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
 })
 /*--------------------------------------------------------------------------------------*/
 router.get("/:id", async function (req, res) {
-    // let popcomment = await comment.aggregate([
-    //     // {
-    //     //     $lookup:
-    //     //     {
-    //     //         localField: "post_id",
-    //     //         from: "post",
-    //     //         foreignField: "_id",
-    //     //         as: "post_id"
-    //     //     }
-    //     // }
-    //     {
-    //         $match: {
-    //             "post_id" : req.params.id
-    //         }
-    //     },
-    // ])
-    // console.log(popcomment)
     let response = await post.aggregate([
+        {
+            $match: {
+                _id : mongoose.Types.ObjectId(req.params.id)
+            }
+        },
         {
             $lookup:
             {
@@ -449,7 +438,7 @@ router.get("/:id", async function (req, res) {
             $lookup:
             {
                 localField: "_id",
-                from: "comment",
+                from: "comments",
                 foreignField: "post_id",
                 as: "comment"
             }
@@ -464,38 +453,60 @@ router.get("/:id", async function (req, res) {
             $project : {
                 "owner_id.salt": 0,
                 "owner_id.hash": 0,
+                "comment.owner_id.salt" :0,
+                "comment.owner_id.hash" :0,
             }
         },
-        // {
-        //     $match: {
-        //         "post._id" : req.params.id
-        //     }
-        // },
         {
-            $sort: {
-                "create_date": -1
+            $unwind: "$comment"
+        },
+
+        {
+            $sort : { "comment.create_date" : -1}
+        },
+        {
+            $lookup:
+            {
+                localField: "comment.owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "comment.owner_id"
+            }
+        },
+        {
+            $unwind: "$comment.owner_id"
+        },
+        {
+            $project : {
+                "comment.owner_id.salt" :0,
+                "comment.owner_id.hash" :0,
+            }
+        },
+        {
+            $group : {
+                _id : {_id : "$_id"},
+                subject_id: {$first : "$subject_id"},
+                owner_id: {$first : "$owner_id"},
+                title: {$first : "$title"},
+                content: {$first : "$content"},
+                subject_id: {$first : "$subject_id"},
+                comment : {$push : "$comment"}
             }
         }
     ])
     // console.log(req.params.id)
-    console.log(response)
+    // console.log(response)
+    // console.log(util.inspect(response, {showHidden: false, depth: null}))
     res.render("showdetail",{detail: response});
 })
-// router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
-//     await post.create({
-//         subject_id : '5ee3ba58c5168331f4498d5f',
-//         owner_id : res.locals.currentUser._id,
-//         title : req.body.text,
-//         content : "TEST",
-//         create_date : new Date()
-//     })
-//     res.redirect("/dinsor/GEN_241")
-// })
-// comment.create({
-//     post_id : '5ee4295bceadfa2194968190',
-//     owner_id : '5ee3f2abcab03b3018c721ef',
-//     comment :'comment test',
-//     create_date : new Date()
-// })
+router.post("/comment/:id",middleware.isLoggedin, async function (req, res) {
+    await comment.create({
+        post_id : req.params.id,
+        owner_id : res.locals.currentUser._id,
+        comment : req.body.text,
+        create_date : new Date()
+    })
+    console.log("wtf R")
+})
 
 module.exports = router;

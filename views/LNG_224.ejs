@@ -16,7 +16,8 @@
         <div class="post_box">
             <p>Post by : <%= lng224DB.owner_id.username %></p><br>
             <p><%= lng224DB.title %></p>
-            <img src=<%= lng224DB.image %>>
+            <hr>
+            <a href="/dinsor/<%= lng224DB._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>
 </div>

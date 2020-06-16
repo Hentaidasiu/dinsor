@@ -16,7 +16,8 @@
         <div class="post_box">
             <p>Post by : <%= css227DB.owner_id.username %></p><br>
             <p><%= css227DB.title %></p>
-            <img src=<%= css227DB.image %>>
+            <hr>
+            <a href="/dinsor/<%= css227DB._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>
 </div>

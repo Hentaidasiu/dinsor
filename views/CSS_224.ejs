@@ -14,9 +14,10 @@
     </div>
     <% css224DB.forEach(function(css224DB){ %>
         <div class="post_box">
-            <p>Post by : <%= css224DB.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= css224DB.owner_id.username %></p>
             <p><%= css224DB.title %></p>
-            <img src=<%= css224DB.image %>>
+            <img src="/image/Dinsor_brand.png">
+            <hr>
             <a href="/dinsor/<%= css224DB._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>

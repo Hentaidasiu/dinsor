@@ -1,10 +1,22 @@
 <%- include("partials/header") %>
 <div class="content">
-    <% detail.forEach(function(detail){ %>
+    <% detail.forEach(function(el){ %>
         <div class="post_box">
-            <p>Post by : <%= detail.owner_id.username %></p><br>
-            <p><%= detail.title %></p>
-            <img src=<%= detail.image %>>
+            <p class="headpostfont">Post by : <%= el.owner_id.username %></p><br>
+            <p><%= el.title %></p>
+        </div>
+        <% el.comment.map(function(e){ %>
+            <div class="post_box">
+                <p><%= e.owner_id.username %> : <span><%= e.comment %></span></p>
+            </div>
+        <%}) %>
+        <div class="post_box">
+            <form method="POST">
+                <div class=" gridcomment">
+                    <input type="text" name="text" class="form-control">
+                    <a href="/dinsor/comment/<%= el.comment._id %>" class="btn btn-warning " type="submit">Add comment</a>
+                </div>
+            </form>
         </div>
     <% }); %>
 </div>

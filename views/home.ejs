@@ -14,9 +14,8 @@
     </div>
     <% board.forEach(function(board){ %>
         <div class="post_box">
-            <p>Post by : <%= board.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= board.owner_id.username %></p><br>
             <p><%= board.title %></p>
-            <img src=<%= board.image %>>
         </div>
     <% }); %>
 </div>

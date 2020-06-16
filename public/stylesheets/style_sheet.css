@@ -3,6 +3,10 @@
         display: none;
     }
 
+    .inline{
+        display: inline;
+    }
+
     .nav_bar {
         height: 8vh;
         display: grid;
@@ -59,7 +63,7 @@
         display: block;
         margin-top: 10px;
     }
-   
+    
     .content {
         margin-left: 17vw;
         margin-right: 2vw;
@@ -75,8 +79,22 @@
         margin-top: 1.5vh;
         box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
     }
-    
-    
+    .headpostfont{
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .post_box hr {
+        background-color:  rgba(41, 41, 41, 0.356);;
+    }
+    .post_box img{
+        width: 18vw;
+        margin-top: 4px;
+        border: 1px solid black;
+    }
+    .gridcomment{
+        display: grid;
+        grid-template-columns: 80% 20%;
+    }
     .footer_bar {
         background-color: rgba(255, 255, 255, 0.2);
         color: aliceblue;
