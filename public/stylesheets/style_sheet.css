@@ -95,6 +95,10 @@
         display: grid;
         grid-template-columns: 80% 20%;
     }
+    .buttcomment{
+        display: grid;
+        grid-template-columns: 86% 7% 7%;
+    }
     .footer_bar {
         background-color: rgba(255, 255, 255, 0.2);
         color: aliceblue;

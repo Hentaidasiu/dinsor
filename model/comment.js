@@ -10,7 +10,7 @@ let commentSchema = new mongoose.Schema({
         ref: "user"
     },
     comment :String,
-    create_date : Date
+    create_date : Date,
 });
 
 module.exports = mongoose.model('comment', commentSchema);

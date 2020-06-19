@@ -2,19 +2,33 @@
 <div class="content">
     <% detail.forEach(function(el){ %>
         <div class="post_box">
-            <p class="headpostfont">Post by : <%= el.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= el.owner_id.username %></p>
+            <hr>
             <p><%= el.title %></p>
+            <hr>
+            <% if(currentUser && el.owner_id._id.toString() == currentUser._id){ %>
+                <a class="btn btn-warning " href="/dinsor/<%= el._id._id %>/edit">Edit</a>
+                <form class="inline" action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-warning" type="submit">Delete</button>
+                </form>
+            <% } %>
         </div>
         <% el.comment.map(function(e){ %>
-            <div class="post_box">
+            <div class="post_box buttcomment">
                 <p><%= e.owner_id.username %> : <span><%= e.comment %></span></p>
+                <% if(currentUser && e.owner_id._id.toString() == currentUser._id){ %>
+                    <a href="/dinsor/<%= el._id._id %>/comment/<%= e._id %>/edit" class="btn btn-warning">Edit</a>
+                    <form class="inline" action="/dinsor/<%= el._id._id %>/comment/<%= e._id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </form>
+                <% } %>
             </div>
         <%}) %>
         <div class="post_box">
-            <form method="POST">
+            <form action="/dinsor/<%= el._id._id %>/comment" method="POST">
                 <div class=" gridcomment">
-                    <input type="text" name="text" class="form-control">
-                    <a href="/dinsor/comment/<%= el.comment._id %>" class="btn btn-warning " type="submit">Add comment</a>
+                    <input type="text" name="comment" class="form-control">
+                    <button class="btn btn-warning " type="submit">Add comment</button>
                 </div>
             </form>
         </div>

@@ -2,12 +2,28 @@ const   express = require('express'),
         router = express.Router(),
         middleware = require('../middleware'),
         mongoose = require("mongoose"),
+        multer = require('multer'),
+        path = require('path'),
         util = require('util');
 const   user = require('../model/user'),
         subject = require('../model/subject'),
         post = require('../model/post'),
         comment = require('../model/comment');
+const storage = multer.diskStorage({
+    destination: './public/uploads',
+    filename: function(req, file, cb) {
+        cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const imageFilter = function(req, file, cb){
+    var ext = path.extname(file.originalname);
+    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg'){
+        return cb(new Error('Only image is allowed'), false)
+        }
+        cb(null, true);
+};
 
+const upload = multer({storage: storage, fileFilter: imageFilter})
 
 /*-------------------------------------------*/
 router.get("/", async function (req, res) {
@@ -56,7 +72,7 @@ router.get("/", async function (req, res) {
     // console.log(response)
     res.render("home",{board: response});
 })
-router.post("/",middleware.isLoggedin, async function (req, res) {
+router.post("/",middleware.isAdmin, async function (req, res) {
     await post.create({
         subject_id : '5ee3b942f045132348e42e56',
         owner_id : res.locals.currentUser._id,
@@ -458,11 +474,10 @@ router.get("/:id", async function (req, res) {
             }
         },
         {
-            $unwind: "$comment"
-        },
-
-        {
-            $sort : { "comment.create_date" : -1}
+            $unwind: {
+                path :  "$comment",
+                preserveNullAndEmptyArrays : true
+            }
         },
         {
             $lookup:
@@ -474,13 +489,19 @@ router.get("/:id", async function (req, res) {
             }
         },
         {
-            $unwind: "$comment.owner_id"
+            $unwind: {
+                path :  "$comment.owner_id",
+                preserveNullAndEmptyArrays : true
+            }
         },
         {
             $project : {
                 "comment.owner_id.salt" :0,
                 "comment.owner_id.hash" :0,
             }
+        },
+        {
+            $sort : { "comment.create_date" : -1}
         },
         {
             $group : {
@@ -496,17 +517,46 @@ router.get("/:id", async function (req, res) {
     ])
     // console.log(req.params.id)
     // console.log(response)
+    if (Object.keys(response[0].comment[0]).length===0){
+        response[0].comment = new Array
+    }
     // console.log(util.inspect(response, {showHidden: false, depth: null}))
     res.render("showdetail",{detail: response});
 })
-router.post("/comment/:id",middleware.isLoggedin, async function (req, res) {
-    await comment.create({
-        post_id : req.params.id,
-        owner_id : res.locals.currentUser._id,
-        comment : req.body.text,
-        create_date : new Date()
-    })
-    console.log("wtf R")
+router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $match: {
+                _id : mongoose.Types.ObjectId(req.params.id)
+            }
+        },
+    ])
+    // console.log(req.params.id)
+    // console.log(response)
+    // console.log(util.inspect(response, {showHidden: false, depth: null}))
+    res.render("editpost",{thatpost: response});
 })
-
+router.put("/:id",middleware.checkPostOwnership, async function (req, res) {
+    post.findByIdAndUpdate(req.params.id, req.body.thatpost, function(error,update){
+        if(error){
+            res.redirect('/dinsor/'+req.params.id)
+        }else{
+            res.redirect('/dinsor/'+req.params.id)
+        }
+    })
+})
+router.delete("/:id",middleware.checkPostOwnership, async function (req, res) {
+    await post.findByIdAndRemove(req.params.id, function(error){
+        if(error){
+            console.log(error)
+        }
+    })
+    await comment.deleteMany({ post_id: req.params.id}, function (error) {
+        if(error){
+            console.log(error)
+        }
+    });
+    req.flash('success','Post deleted')
+    res.redirect('/dinsor')
+})
 module.exports = router;

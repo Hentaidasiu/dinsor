@@ -7,7 +7,9 @@ const   express = require("express"),
     path = require('path'),
     flash = require('connect-flash'),
     indexRoutes = require('./routes/index'),
-    groupRoutes = require('./routes/group');
+    groupRoutes = require('./routes/group'),
+    methodOverride = require('method-override'),
+    commentRoutes = require('./routes/comment');
     // seedDB = require('./seeds');
 const   user = require('./model/user'),
     subject = require('./model/subject'),
@@ -28,9 +30,11 @@ app.use(require('express-session')({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+app.use(methodOverride("_method"))
 passport.use(new passportLocal(user.authenticate()))
 passport.serializeUser(user.serializeUser())
 passport.deserializeUser(user.deserializeUser())
+mongoose.set('useFindAndModify', false);
 // seedDB()
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -62,6 +66,7 @@ app.use(function(req,res,next){
 /*-----------------------------------------------------------------------------------------------*/
 app.use('/', indexRoutes);
 app.use('/dinsor', groupRoutes)
+app.use('/dinsor/:id/comment',commentRoutes)
 app.listen(3000, function (req, res) {
     console.log("Server is ready")
 })

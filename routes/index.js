@@ -55,8 +55,8 @@ router.post("/register", function(req, res){
     })
 })
 /*-------------------------------------------*/
-router.get("/edit",middleware.isLoggedin ,function (req, res) {
-    res.render("edit")
+router.get("/editprofile",middleware.isLoggedin ,function (req, res) {
+    res.render("editprofile")
 })
 
 
