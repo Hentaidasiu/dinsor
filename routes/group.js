@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 const imageFilter = function(req, file, cb){
     var ext = path.extname(file.originalname);
-    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg'){
+    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.docx'){
         return cb(new Error('Only image is allowed'), false)
         }
         cb(null, true);
@@ -129,15 +129,22 @@ router.get("/CSS_224", async function (req, res) {
     // console.log(response)
     res.render("CSS_224",{css224DB: response});
 })
-router.post("/CSS_224",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba399a2faa29f4f62149',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
+router.post("/CSS_224",middleware.isLoggedin, function (req, res) {
+    upload.single('file')(req, res, function (error) {
+        if (error) {
+            console.log(`upload.single error: ${error}`);
+            return res.sendStatus(500);
+        }else{
+            post.create({
+                subject_id : '5ee3ba399a2faa29f4f62149',
+                owner_id : res.locals.currentUser._id,
+                title : req.body.text,
+                content : req.file.filename,
+                create_date : new Date()
+            })
+            res.redirect("/dinsor/CSS_224")
+        }
     })
-    res.redirect("/dinsor/CSS_224")
 })
 /*-------------------------------------------*/
 router.get("/CSS_226", async function (req, res) {

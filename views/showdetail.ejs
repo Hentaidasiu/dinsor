@@ -5,6 +5,8 @@
             <p class="headpostfont">Post by : <%= el.owner_id.username %></p>
             <hr>
             <p><%= el.title %></p>
+            <div src=<%= '../uploads/'+ el.content %>></div>
+            <a href=<%= '../uploads/'+ el.content %>></a>
             <hr>
             <% if(currentUser && el.owner_id._id.toString() == currentUser._id){ %>
                 <a class="btn btn-warning " href="/dinsor/<%= el._id._id %>/edit">Edit</a>
