@@ -4,10 +4,11 @@
         <h4>Welcome to CSS227 group</h4>
     </div>
     <div class="post_box">
-        <form action="/dinsor/CSS_227" method="POST">
+        <form action="/dinsor/CSS_227" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Create new post here.</h5><br>
                 <input type="text" name="text" class="form-control">
+                <input type="file" name="file">
             </div>
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
@@ -16,6 +17,12 @@
         <div class="post_box">
             <p>Post by : <%= css227DB.owner_id.username %></p><br>
             <p><%= css227DB.title %></p>
+            <% if(css227DB.content == "none"){ %>
+                
+            <% }else{ %>
+                <img  alt="no image" src=<%= '../uploads/'+ css227DB.content %>><br>
+                <a href=<%= '../uploads/'+ css227DB.content %>><%= css227DB.content %></a>
+            <% } %>
             <hr>
             <a href="/dinsor/<%= css227DB._id %>" class="btn btn-warning">More detail</a>
         </div>

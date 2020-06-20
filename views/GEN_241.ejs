@@ -4,10 +4,11 @@
         <h4>Welcome to GEN241 group</h4>
     </div>
     <div class="post_box">
-        <form action="/dinsor/GEN_241" method="POST">
+        <form action="/dinsor/GEN_241" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Create new post here.</h5><br>
                 <input type="text" name="text" class="form-control">
+                <input type="file" name="file">
             </div>
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
@@ -16,6 +17,12 @@
         <div class="post_box">
             <p>Post by : <%= gen241DB.owner_id.username %></p><br>
             <p><%= gen241DB.title %></p>
+            <% if(gen241DB.content == "none"){ %>
+                
+            <% }else{ %>
+                <img  alt="no image" src=<%= '../uploads/'+ gen241DB.content %>><br>
+                <a href=<%= '../uploads/'+ gen241DB.content %>><%= gen241DB.content %></a>
+            <% } %>
             <hr>
             <a href="/dinsor/<%= gen241DB._id %>" class="btn btn-warning">More detail</a>
         </div>

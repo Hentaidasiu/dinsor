@@ -4,6 +4,7 @@ const   express = require('express'),
         mongoose = require("mongoose"),
         multer = require('multer'),
         path = require('path'),
+        fs = require('fs'),
         util = require('util');
 const   user = require('../model/user'),
         subject = require('../model/subject'),
@@ -129,22 +130,26 @@ router.get("/CSS_224", async function (req, res) {
     // console.log(response)
     res.render("CSS_224",{css224DB: response});
 })
-router.post("/CSS_224",middleware.isLoggedin, function (req, res) {
-    upload.single('file')(req, res, function (error) {
-        if (error) {
-            console.log(`upload.single error: ${error}`);
-            return res.sendStatus(500);
-        }else{
-            post.create({
-                subject_id : '5ee3ba399a2faa29f4f62149',
-                owner_id : res.locals.currentUser._id,
-                title : req.body.text,
-                content : req.file.filename,
-                create_date : new Date()
-            })
-            res.redirect("/dinsor/CSS_224")
-        }
-    })
+router.post("/CSS_224",middleware.isLoggedin,upload.single('file'),async function (req, res) {
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba399a2faa29f4f62149',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba399a2faa29f4f62149',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
+    res.redirect("/dinsor/CSS_224")
 })
 /*-------------------------------------------*/
 router.get("/CSS_226", async function (req, res) {
@@ -193,14 +198,32 @@ router.get("/CSS_226", async function (req, res) {
     // console.log(response)
     res.render("CSS_226",{css226DB: response});
 })
-router.post("/CSS_226",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba3d889d531ff430dd2b',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
-    })
+router.post("/CSS_226",middleware.isLoggedin,upload.single('file'), async function (req, res) {
+    // await post.create({
+    //     subject_id : '5ee3ba3d889d531ff430dd2b',
+    //     owner_id : res.locals.currentUser._id,
+    //     title : req.body.text,
+    //     content : "TEST",
+    //     create_date : new Date()
+    // })
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba3d889d531ff430dd2b',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba3d889d531ff430dd2b',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
     res.redirect("/dinsor/CSS_226")
 })
 /*-------------------------------------------*/
@@ -250,14 +273,32 @@ router.get("/CSS_227", async function (req, res) {
     // console.log(response)
     res.render("CSS_227",{css227DB: response});
 })
-router.post("/CSS_227",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba404d47e20238a191c3',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
-    })
+router.post("/CSS_227",middleware.isLoggedin,upload.single('file'), async function (req, res) {
+    // await post.create({
+    //     subject_id : '5ee3ba404d47e20238a191c3',
+    //     owner_id : res.locals.currentUser._id,
+    //     title : req.body.text,
+    //     content : "TEST",
+    //     create_date : new Date()
+    // })
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba404d47e20238a191c3',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba404d47e20238a191c3',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
     res.redirect("/dinsor/CSS_227")
 })
 /*-------------------------------------------*/
@@ -307,14 +348,32 @@ router.get("/CSS_228", async function (req, res) {
     // console.log(response)
     res.render("CSS_228",{css228DB: response});
 })
-router.post("/CSS_228",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba423203304c8c7e9d76',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
-    })
+router.post("/CSS_228",middleware.isLoggedin,upload.single('file'), async function (req, res) {
+    // await post.create({
+    //     subject_id : '5ee3ba423203304c8c7e9d76',
+    //     owner_id : res.locals.currentUser._id,
+    //     title : req.body.text,
+    //     content : "TEST",
+    //     create_date : new Date()
+    // })
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba423203304c8c7e9d76',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba423203304c8c7e9d76',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
     res.redirect("/dinsor/CSS_228")
 })
 /*-------------------------------------------*/
@@ -364,14 +423,32 @@ router.get("/LNG_224", async function (req, res) {
     // console.log(response)
     res.render("LNG_224",{lng224DB: response});
 })
-router.post("/LNG_224",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba4c08ca9f41c8fa0269',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
-    })
+router.post("/LNG_224",middleware.isLoggedin,upload.single('file'), async function (req, res) {
+    // await post.create({
+    //     subject_id : '5ee3ba4c08ca9f41c8fa0269',
+    //     owner_id : res.locals.currentUser._id,
+    //     title : req.body.text,
+    //     content : "TEST",
+    //     create_date : new Date()
+    // })
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba4c08ca9f41c8fa0269',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba4c08ca9f41c8fa0269',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
     res.redirect("/dinsor/LNG_224")
 })
 /*-------------------------------------------*/
@@ -421,14 +498,32 @@ router.get("/GEN_241", async function (req, res) {
     console.log(response)
     res.render("GEN_241",{gen241DB: response});
 })
-router.post("/GEN_241",middleware.isLoggedin, async function (req, res) {
-    await post.create({
-        subject_id : '5ee3ba58c5168331f4498d5f',
-        owner_id : res.locals.currentUser._id,
-        title : req.body.text,
-        content : "TEST",
-        create_date : new Date()
-    })
+router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async function (req, res) {
+    // await post.create({
+    //     subject_id : '5ee3ba58c5168331f4498d5f',
+    //     owner_id : res.locals.currentUser._id,
+    //     title : req.body.text,
+    //     content : "TEST",
+    //     create_date : new Date()
+    // })
+    if(req.file){
+        await post.create({
+            subject_id : '5ee3ba58c5168331f4498d5f',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : req.file.filename,
+            create_date : new Date()
+        })
+        
+    }else{
+        await post.create({
+            subject_id : '5ee3ba58c5168331f4498d5f',
+            owner_id : res.locals.currentUser._id,
+            title : req.body.text,
+            content : "none",
+            create_date : new Date()
+        })
+    }
     res.redirect("/dinsor/GEN_241")
 })
 /*--------------------------------------------------------------------------------------*/
@@ -543,8 +638,29 @@ router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) 
     // console.log(util.inspect(response, {showHidden: false, depth: null}))
     res.render("editpost",{thatpost: response});
 })
-router.put("/:id",middleware.checkPostOwnership, async function (req, res) {
-    post.findByIdAndUpdate(req.params.id, req.body.thatpost, function(error,update){
+router.put("/:id",middleware.checkPostOwnership,upload.single('file'), async function (req, res) {
+    let n_title = req.body.title;
+    if(req.file){
+        let n_content = req.file.filename
+        post.findById(req.params.id,function(error,found){
+            if(error){
+                console.log(error)
+            }else{
+                const filePath = './public/uploads/'+found.content
+                fs.unlink(filePath, function(err){
+                    if(err){
+                        console.log(err);
+                        res.redirect('/dinsor');
+                    }
+                })
+            }
+        })
+        var n_post = {title:n_title,content:n_content};
+    }else{
+        console.log('fileNotpass')
+        var n_post = {title:n_title};
+    }
+    post.findByIdAndUpdate(req.params.id, n_post, function(error,update){
         if(error){
             res.redirect('/dinsor/'+req.params.id)
         }else{
@@ -553,6 +669,19 @@ router.put("/:id",middleware.checkPostOwnership, async function (req, res) {
     })
 })
 router.delete("/:id",middleware.checkPostOwnership, async function (req, res) {
+    await post.findById(req.params.id,function(error,found){
+        if(error){
+            console.log(error)
+        }else{
+            const filePath = './public/uploads/'+found.content
+            fs.unlink(filePath, function(err){
+                if(err){
+                    console.log(err);
+                    res.redirect('/dinsor');
+                }
+            })
+        }
+    })
     await post.findByIdAndRemove(req.params.id, function(error){
         if(error){
             console.log(error)
@@ -563,7 +692,14 @@ router.delete("/:id",middleware.checkPostOwnership, async function (req, res) {
             console.log(error)
         }
     });
+    
     req.flash('success','Post deleted')
-    res.redirect('/dinsor')
+    res.redirect('.')
 })
+// router.get("/search", async function (req, res) {
+//     let searchtext = req.body.search
+//     console.log(searchtext)
+// })
+
+
 module.exports = router;

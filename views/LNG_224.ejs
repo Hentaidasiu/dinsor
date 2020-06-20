@@ -4,10 +4,11 @@
         <h4>Welcome to LNG224 group</h4>
     </div>
     <div class="post_box">
-        <form action="/dinsor/LNG_224" method="POST">
+        <form action="/dinsor/LNG_224" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Create new post here.</h5><br>
                 <input type="text" name="text" class="form-control">
+                <input type="file" name="file">
             </div>
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
@@ -16,6 +17,12 @@
         <div class="post_box">
             <p>Post by : <%= lng224DB.owner_id.username %></p><br>
             <p><%= lng224DB.title %></p>
+            <% if(lng224DB.content == "none"){ %>
+                
+            <% }else{ %>
+                <img  alt="no image" src=<%= '../uploads/'+ lng224DB.content %>><br>
+                <a href=<%= '../uploads/'+ lng224DB.content %>><%= lng224DB.content %></a>
+            <% } %>
             <hr>
             <a href="/dinsor/<%= lng224DB._id %>" class="btn btn-warning">More detail</a>
         </div>

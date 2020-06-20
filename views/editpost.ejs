@@ -2,10 +2,11 @@
 <div class="content">
     <div class="post_box">
         <% thatpost.forEach(function(el){ %>
-        <form action="/dinsor/<%= el._id %>?_method=PUT" method="POST">
+        <form action="/dinsor/<%= el._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Edit post</h5><br>
-                <input type="text" name="thatpost[title]" class="form-control" value="<%= el.title %>">
+                <input type="text" name="title" class="form-control" value="<%= el.title %>">
+                <input type="file" name="file">
             </div>
             <button class="btn btn-warning" type="submit">Save</button>
         </form>
