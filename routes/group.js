@@ -5,6 +5,7 @@ const   express = require('express'),
         multer = require('multer'),
         path = require('path'),
         fs = require('fs'),
+        moment = require('moment'),
         util = require('util');
 const   user = require('../model/user'),
         subject = require('../model/subject'),
@@ -13,7 +14,7 @@ const   user = require('../model/user'),
 const storage = multer.diskStorage({
     destination: './public/uploads',
     filename: function(req, file, cb) {
-        cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null,"FileNumber"+Date.now()+ path.extname(file.originalname));
     }
 });
 const imageFilter = function(req, file, cb){
@@ -71,11 +72,18 @@ router.get("/", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("home",{board: response});
+    res.render("home",{board: response, moment: moment});
 })
 router.post("/",middleware.isAdmin, async function (req, res) {
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "home"
+            }
+        }
+    ])
     await post.create({
-        subject_id : '5ee3b942f045132348e42e56',
+        subject_id : response[0]._id,
         owner_id : res.locals.currentUser._id,
         title : req.body.text,
         content : "TEST",
@@ -128,12 +136,21 @@ router.get("/CSS_224", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("CSS_224",{css224DB: response});
+    // console.log(moment(post.create_date).format("DD/MM/YYYY"))
+    res.render("CSS_224",{css224DB: response, moment: moment});
 })
 router.post("/CSS_224",middleware.isLoggedin,upload.single('file'),async function (req, res) {
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "css224"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba399a2faa29f4f62149',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -142,7 +159,7 @@ router.post("/CSS_224",middleware.isLoggedin,upload.single('file'),async functio
         
     }else{
         await post.create({
-            subject_id : '5ee3ba399a2faa29f4f62149',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -196,7 +213,7 @@ router.get("/CSS_226", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("CSS_226",{css226DB: response});
+    res.render("CSS_226",{css226DB: response, moment: moment});
 })
 router.post("/CSS_226",middleware.isLoggedin,upload.single('file'), async function (req, res) {
     // await post.create({
@@ -206,9 +223,17 @@ router.post("/CSS_226",middleware.isLoggedin,upload.single('file'), async functi
     //     content : "TEST",
     //     create_date : new Date()
     // })
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "css226"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba3d889d531ff430dd2b',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -217,7 +242,7 @@ router.post("/CSS_226",middleware.isLoggedin,upload.single('file'), async functi
         
     }else{
         await post.create({
-            subject_id : '5ee3ba3d889d531ff430dd2b',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -271,7 +296,7 @@ router.get("/CSS_227", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("CSS_227",{css227DB: response});
+    res.render("CSS_227",{css227DB: response, moment: moment});
 })
 router.post("/CSS_227",middleware.isLoggedin,upload.single('file'), async function (req, res) {
     // await post.create({
@@ -281,9 +306,17 @@ router.post("/CSS_227",middleware.isLoggedin,upload.single('file'), async functi
     //     content : "TEST",
     //     create_date : new Date()
     // })
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "css227"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba404d47e20238a191c3',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -292,7 +325,7 @@ router.post("/CSS_227",middleware.isLoggedin,upload.single('file'), async functi
         
     }else{
         await post.create({
-            subject_id : '5ee3ba404d47e20238a191c3',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -346,7 +379,7 @@ router.get("/CSS_228", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("CSS_228",{css228DB: response});
+    res.render("CSS_228",{css228DB: response, moment: moment});
 })
 router.post("/CSS_228",middleware.isLoggedin,upload.single('file'), async function (req, res) {
     // await post.create({
@@ -356,9 +389,17 @@ router.post("/CSS_228",middleware.isLoggedin,upload.single('file'), async functi
     //     content : "TEST",
     //     create_date : new Date()
     // })
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "css228"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba423203304c8c7e9d76',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -367,7 +408,7 @@ router.post("/CSS_228",middleware.isLoggedin,upload.single('file'), async functi
         
     }else{
         await post.create({
-            subject_id : '5ee3ba423203304c8c7e9d76',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -421,7 +462,7 @@ router.get("/LNG_224", async function (req, res) {
         }
     ])
     // console.log(response)
-    res.render("LNG_224",{lng224DB: response});
+    res.render("LNG_224",{lng224DB: response, moment: moment});
 })
 router.post("/LNG_224",middleware.isLoggedin,upload.single('file'), async function (req, res) {
     // await post.create({
@@ -431,9 +472,17 @@ router.post("/LNG_224",middleware.isLoggedin,upload.single('file'), async functi
     //     content : "TEST",
     //     create_date : new Date()
     // })
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "lng224"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba4c08ca9f41c8fa0269',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -442,7 +491,7 @@ router.post("/LNG_224",middleware.isLoggedin,upload.single('file'), async functi
         
     }else{
         await post.create({
-            subject_id : '5ee3ba4c08ca9f41c8fa0269',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -496,7 +545,7 @@ router.get("/GEN_241", async function (req, res) {
         }
     ])
     console.log(response)
-    res.render("GEN_241",{gen241DB: response});
+    res.render("GEN_241",{gen241DB: response, moment: moment});
 })
 router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async function (req, res) {
     // await post.create({
@@ -506,9 +555,17 @@ router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async functi
     //     content : "TEST",
     //     create_date : new Date()
     // })
+    let response = await subject.aggregate([
+        {
+            $match: {
+                "subject_name" : "gen241"
+            }
+        }
+    ])
+    // console.log(response[0]._id)
     if(req.file){
         await post.create({
-            subject_id : '5ee3ba58c5168331f4498d5f',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : req.file.filename,
@@ -517,7 +574,7 @@ router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async functi
         
     }else{
         await post.create({
-            subject_id : '5ee3ba58c5168331f4498d5f',
+            subject_id : response[0]._id,
             owner_id : res.locals.currentUser._id,
             title : req.body.text,
             content : "none",
@@ -525,6 +582,64 @@ router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async functi
         })
     }
     res.redirect("/dinsor/GEN_241")
+})
+/*--------------------------------------------------------------------------------------*/
+router.get("/search", async function (req, res) {
+    let searchtext = req.query.search
+    let response = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $match: {
+                "owner_id.username" : searchtext
+            }
+        },
+    ])
+    let response2 = await post.aggregate([
+        {
+            $lookup:
+            {
+                localField: "owner_id",
+                from: "users",
+                foreignField: "_id",
+                as: "owner_id"
+            }
+        },
+        {
+            $unwind: "$owner_id"
+        },
+        {
+            $project : {
+                "owner_id.salt": 0,
+                "owner_id.hash": 0,
+            }
+        },
+        {
+            $match: {
+                "title" : searchtext
+            }
+        },
+    ])
+    console.log(response)
+    console.log("----------------------------")
+    console.log(response2)
+    res.render("searchResult",{detail: response,detail2: response2, moment: moment});
 })
 /*--------------------------------------------------------------------------------------*/
 router.get("/:id", async function (req, res) {
@@ -623,7 +738,7 @@ router.get("/:id", async function (req, res) {
         response[0].comment = new Array
     }
     // console.log(util.inspect(response, {showHidden: false, depth: null}))
-    res.render("showdetail",{detail: response});
+    res.render("showdetail",{detail: response, moment: moment});
 })
 router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) {
     let response = await post.aggregate([
@@ -636,7 +751,7 @@ router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) 
     // console.log(req.params.id)
     // console.log(response)
     // console.log(util.inspect(response, {showHidden: false, depth: null}))
-    res.render("editpost",{thatpost: response});
+    res.render("editpost",{thatpost: response, moment: moment});
 })
 router.put("/:id",middleware.checkPostOwnership,upload.single('file'), async function (req, res) {
     let n_title = req.body.title;
@@ -696,10 +811,7 @@ router.delete("/:id",middleware.checkPostOwnership, async function (req, res) {
     req.flash('success','Post deleted')
     res.redirect('.')
 })
-// router.get("/search", async function (req, res) {
-//     let searchtext = req.body.search
-//     console.log(searchtext)
-// })
+
 
 
 module.exports = router;

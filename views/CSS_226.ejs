@@ -15,13 +15,13 @@
     </div>
     <% css226DB.forEach(function(css226DB){ %>
         <div class="post_box">
-            <p>Post by : <%= css226DB.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= css226DB.owner_id.username %></p>
+            <p>Create date: <%= moment(css226DB.create_date).format("DD/MM/YYYY") %></p>
             <p><%= css226DB.title %></p>
             <% if(css226DB.content == "none"){ %>
                 
             <% }else{ %>
-                <img  alt="no image" src=<%= '../uploads/'+ css226DB.content %>><br>
-                <a href=<%= '../uploads/'+ css226DB.content %>><%= css226DB.content %></a>
+                <a href=<%= '../uploads/'+ css226DB.content %>><img  alt="<%= css226DB.content %>" src=<%= '../uploads/'+ css226DB.content %>></a>
             <% } %>
             <hr>
             <a href="/dinsor/<%= css226DB._id %>" class="btn btn-warning">More detail</a>

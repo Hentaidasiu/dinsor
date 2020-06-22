@@ -2,9 +2,20 @@
 <div class="content">
     <% detail.forEach(function(el){ %>
         <div class="post_box">
+            <% if(currentUser && el.owner_id._id.toString() == currentUser._id){ %>
+                <button style="position: absolute;" type="button" class="guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
+                    <form class="" action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
+                        <button class="dropdown-item" type="submit">Delete</button>
+                    </form>
+                </div> 
+            <% } %>
             <p class="headpostfont">Post by : <%= el.owner_id.username %></p>
+            <p>Create date: <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
             <hr>
             <p><%= el.title %></p>
+            <p><%= el.create_date %></p>
             <div src=<%= '../uploads/'+ el.content %>></div>
             <a href=<%= '../uploads/'+ el.content %>></a>
             <% if(el.content == "none"){ %>
@@ -15,10 +26,13 @@
             <% } %>
             <hr>
             <% if(currentUser && el.owner_id._id.toString() == currentUser._id){ %>
-                <a class="btn btn-warning " href="/dinsor/<%= el._id._id %>/edit">Edit</a>
-                <form class="inline" action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-warning" type="submit">Delete</button>
-                </form>
+                <button style="" type="button" class="guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
+                    <form class="" action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
+                        <button class="dropdown-item" type="submit">Delete</button>
+                    </form>
+                </div> 
             <% } %>
         </div>
         <% el.comment.map(function(e){ %>

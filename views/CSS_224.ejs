@@ -16,12 +16,12 @@
     <% css224DB.forEach(function(css224DB){ %>
         <div class="post_box">
             <p class="headpostfont">Post by : <%= css224DB.owner_id.username %></p>
+            <p>Create date: <%= moment(css224DB.create_date).format("DD/MM/YYYY") %></p>
             <p><%= css224DB.title %></p>
             <% if(css224DB.content == "none"){ %>
                 
             <% }else{ %>
-                <img  alt="no image" src=<%= '../uploads/'+ css224DB.content %>><br>
-                <a href=<%= '../uploads/'+ css224DB.content %>><%= css224DB.content %></a>
+                <a href=<%= '../uploads/'+ css224DB.content %>><img  alt="<%= css224DB.content %>" src=<%= '../uploads/'+ css224DB.content %>></a>
             <% } %>
             <hr>
             <a href="/dinsor/<%= css224DB._id %>" class="btn btn-warning">More detail</a>

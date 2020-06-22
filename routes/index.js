@@ -37,19 +37,19 @@ router.get("/register", function (req, res) {
     res.render("register")
 })
 router.post("/register", function(req, res){
-    console.log(req.body)
+    // console.log(req.body)
     if(req.body.password != req.body.c_password){
         console.log("confirm password error")
         return res.render('register')
     }
-    user.register(new user({username: req.body.username}), req.body.password,function(error, user){
+    user.register(new user({username: req.body.username, permission: 'user'}), req.body.password,function(error, user){
         if(error){
             console.log(error);
             return res.render('register')
         }
         
         passport.authenticate('local')(req,res,function(){
-            req.flash('success','Welcome to our team :'+ user.username)
+            req.flash('success','Welcome to our website ,'+ user.username)
             res.redirect('/dinsor')
         })
     })

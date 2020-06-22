@@ -20,7 +20,7 @@ module.exports = {
                     res.redirect('back');
                     
                 }
-                if(founduser._id.toString() == "5ee3f2abcab03b3018c721ef") {
+                if(founduser.permission.toString() == "admin") {
 
                     next();
                 } else {

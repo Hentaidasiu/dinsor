@@ -15,13 +15,13 @@
     </div>
     <% gen241DB.forEach(function(gen241DB){ %>
         <div class="post_box">
-            <p>Post by : <%= gen241DB.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= gen241DB.owner_id.username %></p>
+            <p>Create date: <%= moment(gen241DB.create_date).format("DD/MM/YYYY") %></p>
             <p><%= gen241DB.title %></p>
             <% if(gen241DB.content == "none"){ %>
                 
             <% }else{ %>
-                <img  alt="no image" src=<%= '../uploads/'+ gen241DB.content %>><br>
-                <a href=<%= '../uploads/'+ gen241DB.content %>><%= gen241DB.content %></a>
+                <a href=<%= '../uploads/'+ gen241DB.content %>><img  alt="<%= gen241DB.content %>" src=<%= '../uploads/'+ gen241DB.content %>></a>
             <% } %>
             <hr>
             <a href="/dinsor/<%= gen241DB._id %>" class="btn btn-warning">More detail</a>

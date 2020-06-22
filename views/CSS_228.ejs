@@ -15,13 +15,13 @@
     </div>
     <% css228DB.forEach(function(css228DB){ %>
         <div class="post_box">
-            <p>Post by : <%= css228DB.owner_id.username %></p><br>
+            <p class="headpostfont">Post by : <%= css228DB.owner_id.username %></p>
+            <p>Create date: <%= moment(css228DB.create_date).format("DD/MM/YYYY") %></p>
             <p><%= css228DB.title %></p>
             <% if(css228DB.content == "none"){ %>
                 
             <% }else{ %>
-                <img  alt="no image" src=<%= '../uploads/'+ css228DB.content %>><br>
-                <a href=<%= '../uploads/'+ css228DB.content %>><%= css228DB.content %></a>
+                <a href=<%= '../uploads/'+ css228DB.content %>><img  alt="<%= css228DB.content %>" src=<%= '../uploads/'+ css228DB.content %>></a>
             <% } %>
             <hr>
             <a href="/dinsor/<%= css228DB._id %>" class="btn btn-warning">More detail</a>

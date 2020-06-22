@@ -22,9 +22,9 @@
                 <span class="prof">DinSor</span></center>
             </a>
 
-            <form class=" search_bar" action="">
-                <input type="search" placeholder="Search" aria-label="Search">
-                <button type="submit"><i class="fa fa-search"></i></button>
+            <form class=" search_bar" action="/dinsor/search" method="GET">
+                <input type="search" name="search" placeholder="Search" aria-label="Search">
+                <button type="submit" formaction="/dinsor/search"><i class="fa fa-search"></i></button>
             </form>
             
             <div class="hidden">
@@ -56,8 +56,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/editprofile">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
+                            <!-- <a class="dropdown-item" href="/editprofile">Edit Profile</a>
+                            <div class="dropdown-divider"></div> -->
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>                        
                     </div>
@@ -74,8 +74,8 @@
             <% }else{ %>
                 <i type="button" class="dropdown-toggle-split fas fa-user-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/edit">Edit Profile</a>
-                    <div class="dropdown-divider"></div>
+                    <!-- <a class="dropdown-item" href="/edit">Edit Profile</a>
+                    <div class="dropdown-divider"></div> -->
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div> 
             <% } %>
