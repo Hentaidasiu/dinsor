@@ -159,7 +159,7 @@
         width: 95%; 
         margin-left: 2vw;
         vertical-align: middle;
- 
+
     }
     .add_comment_box{
         display: grid;
@@ -217,5 +217,14 @@
             margin-right: 10vw; 
             padding: 10px;
             box-shadow: -1px 4px 28px 0px rgba(7, 7, 7, 0.4);
+        }
+        .prof{
+            display: none;
+        }
+        .grid_5-95{
+            grid-template-columns: 20% 80%;
+        }
+        .add_comment_box{
+            grid-template-columns: 70% 30%;
         }
     }

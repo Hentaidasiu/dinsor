@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 });
 const imageFilter = function(req, file, cb){
     var ext = path.extname(file.originalname);
-    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.docx'  && ext !== '.pdf'){
+    if(ext !== '.png' && ext !== '.pptx' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.docx'  && ext !== '.pdf'&& ext !== '.xlxs'){
         return cb(new Error('Only image is allowed'), false)
         }
         cb(null, true);
@@ -762,7 +762,7 @@ router.put("/:id",middleware.havepermission,upload.single('file'), async functio
         })
         var n_post = {title:n_title,content:n_content};
     }else{
-        console.log('fileNotpass')
+        // console.log('fileNotpass')
         var n_post = {title:n_title};
     }
     post.findByIdAndUpdate(req.params.id, n_post, function(error,update){
@@ -773,7 +773,7 @@ router.put("/:id",middleware.havepermission,upload.single('file'), async functio
         }
     })
 })
-router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) {
+router.get("/:id/edit",middleware.havepermission, async function (req, res) {
     let response = await post.aggregate([
         {
             $match: {

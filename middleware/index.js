@@ -33,27 +33,26 @@ module.exports = {
             res.redirect('back');
         }
     },
-    checkPostOwnership(req, res, next){
-        if(req.isAuthenticated()){
-            post.findById(req.params.id, function(err, foundpost){
-                if(err){
-                    //res.redirect("back");
-                    console.log(err)
-                    res.redirect('back');
-                    
-                }
-                if(foundpost.owner_id.toString() == res.locals.currentUser._id) {
-
-                    next();
-                } else {
-                    res.redirect('back');
-                }
-            });
-        } else {
-            req.flash('error', 'You need to login first');
-            res.redirect('back');
-        }
-    },
+    // checkPostOwnership(req, res, next){
+    //     if(req.isAuthenticated()){
+    //         post.findById(req.params.id, function(err, foundpost){
+    //             if(err){
+    //                 //res.redirect("back");
+    //                 console.log(err)
+    //                 res.redirect('back');
+    //             }
+    //             if(foundpost.owner_id.toString() == res.locals.currentUser._id) {
+    //                 next();
+    //             } else {
+    //                 req.flash('error', 'You must be owner or admin');
+    //                 res.redirect('back');
+    //             }
+    //         });
+    //     } else {
+    //         req.flash('error', 'You need to login first');
+    //         res.redirect('back');
+    //     }
+    // },
     havepermission(req, res, next){
         if(req.isAuthenticated()){
             user.findById(res.locals.currentUser._id, function(err, founduser){
@@ -65,15 +64,12 @@ module.exports = {
                         
                     }
                     if(founduser.permission.toString() == "admin") {
-
                         next();
-
                     } else {
                         if(foundpost.owner_id.toString() == res.locals.currentUser._id) {
-
                             next();
-
                         } else {
+                        req.flash('error', 'You must be owner or admin');
                         res.redirect('back');
                         }
                     }

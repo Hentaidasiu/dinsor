@@ -4,15 +4,18 @@
         <div class="post_box">
             <div class="headpost_grid">
                 <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
-                <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>        
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
-                    <form  action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
-                        <button class="dropdown-item" type="submit">Delete</button>
-                    </form>
-                </div> 
+                <% if(currentUser){ %>
+                    <% if(currentUser && el.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+                        <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>        
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
+                            <form  action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
+                                <button class="dropdown-item" type="submit">Delete</button>
+                            </form>
+                        </div> 
+                    <% } %>
+                <% } %>
             </div>
-
             <p class="time">Create date : <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
             <hr>
             <p><%= el.title %></p>
@@ -24,28 +27,30 @@
                 <a target="_blank" href=<%= '../uploads/'+ el.content %>>
                     <img  alt="<%=  el.content %>" src=<%= '../uploads/'+ el.content %>>
                 </a>
-                
             <% } %>
-
 
         </div>
         <% el.comment.map(function(e){ %>
             <div class="post_box comment_box ">
                 <p style="margin: 0px;"><span class="ib"><%= e.owner_id.username %></span> : <span><%= e.comment %></span></p>
-                    <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>    
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/comment/<%= e._id %>/edit" >Edit</a>
-                        <form  action="/dinsor/<%= el._id._id %>/comment/<%= e._id %>?_method=DELETE" method="POST">
-                            <button class=" dropdown-item" type="submit" >Delete</button>
-                        </form>
-                    </div> 
+                    <% if(currentUser){ %>
+                        <% if(currentUser && e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+                            <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>    
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/comment/<%= e._id %>/edit" >Edit</a>
+                                <form  action="/dinsor/<%= el._id._id %>/comment/<%= e._id %>?_method=DELETE" method="POST">
+                                    <button class=" dropdown-item" type="submit" >Delete</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    <% } %>
             </div>
         <%}) %>
 
             <form action="/dinsor/<%= el._id._id %>/comment" method="POST">
                 <div class="post_box add_comment_box">
                     <input type="text" name="comment" class="form-control" placeholder="Add comment...">
-                    <button class="btn btn-warning " type="submit">Add comment</button>
+                    <button class="btn btn-warning " type="submit">Send</button>
                 </div>
             </form>
     <% }); %>
