@@ -23,7 +23,7 @@
             </a>
 
             <form class=" search_bar" action="/dinsor/search" method="GET">
-                <input type="search" name="search" placeholder="Search" aria-label="Search">
+                <input type="search" name="search" placeholder="Search..." aria-label="Search">
                 <button type="submit" formaction="/dinsor/search"><i class="fa fa-search"></i></button>
             </form>
             
@@ -31,8 +31,10 @@
                 <i type="button" class="dropdown-toggle-split fas fa-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu">
                     <div class="dropdown-item search_bar">
-                        <input type="search" placeholder="Search" aria-label="Search">
-                        <button class="" type="submit"><i class="fa fa-search"></i></button>
+                        <form  action="/dinsor/search" method="GET">
+                            <input type="search" name="search" placeholder="Search..." aria-label="Search">
+                            <button type="submit" formaction="/dinsor/search"><i class="fa fa-search"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -40,8 +42,8 @@
             <form action="/Index" method="POST" class="user_icon">
                 <% if(!currentUser){ %>
                     <div class="btn-group col-lg-3">
-                        <button type="button" class="guest">Guest</button> 
-                        <button type="button" class=" guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <text class="no_edge_btn">Guest</text> 
+                        <button type="button" class="no_edge_btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
@@ -51,8 +53,8 @@
                     </div>
                 <% }else{ %>
                     <div class="btn-group col-lg-3">
-                        <button type="button" class="guest"><%= currentUser.username %></button> 
-                        <button type="button" class="guest dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <text class="no_edge_btn"><%= currentUser.username %></text> 
+                        <button type="button" class="no_edge_btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">

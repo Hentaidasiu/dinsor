@@ -2,9 +2,29 @@
     .hidden {
         display: none;
     }
-
     .inline{
         display: inline;
+    }
+    .grid_5-95 {
+        display: grid;
+        grid-template-columns: 5% 95%;
+    }
+    .no_edge_btn {
+        border: 0;
+        background-color: white;
+    }
+    .time {
+        color: #818181;
+        font-size: 16px;
+    }
+    .ib {
+        font-style: italic;
+        font-weight: bolder;
+    }
+    .I_in{
+
+        text-align: center;
+        vertical-align: middle;
     }
 
     .nav_bar {
@@ -37,9 +57,6 @@
 
     .sidebar_content {
         margin-top: 8vh;
-        
-        /* display: grid;
-        grid-template-columns: 15% 85% ; */
     }
     .side_bar {
         position: fixed;
@@ -83,6 +100,13 @@
     .headpostfont{
         font-size: 20px;
         font-weight: 500;
+        margin-bottom: 0vh;
+    }
+    .headpost_grid{
+        display: grid;
+        grid-template-columns: 97% 3%;
+        vertical-align: middle;
+        
     }
     .post_box hr {
         background-color:  rgba(41, 41, 41, 0.356);;
@@ -92,27 +116,36 @@
         margin-top: 4px;
         border: 1px solid black;
     }
-    .gridcomment{
+    
+    .comment_box {
+        display: grid;
+        grid-template-columns: 97% 3%;
+        width: 95%; 
+        margin-left: 2vw;
+        vertical-align: middle;
+        margin-bottom: 0vh;
+ 
+    }
+    .add_comment_box{
         display: grid;
         grid-template-columns: 80% 20%;
+        width: 95%; 
+        margin-left: 2vw;
+        
     }
-    .buttcomment{
-        display: grid;
-        grid-template-columns: 86% 7% 7%;
-    }
+
     .footer_bar {
         background-color: rgba(255, 255, 255, 0.2);
         color: aliceblue;
         font-style: bold;
         text-align: right;
+        display: grid;
+        grid-template-columns: 1fr 7%;
     }
     .footer_bar a{
         margin-right: 1vw;
     }
-    .guest{
-        border: 0;
-        background-color: white;
-    }
+    
 
     @media screen and (max-width: 800px) {
         .side_bar {

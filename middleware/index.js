@@ -54,6 +54,37 @@ module.exports = {
             res.redirect('back');
         }
     },
+    havepermission(req, res, next){
+        if(req.isAuthenticated()){
+            user.findById(res.locals.currentUser._id, function(err, founduser){
+                post.findById(req.params.id, function(err, foundpost){
+                    if(err){
+                    //res.redirect("back");
+                    console.log(err)
+                    res.redirect('back');
+                        
+                    }
+                    if(founduser.permission.toString() == "admin") {
+
+                        next();
+
+                    } else {
+                        if(foundpost.owner_id.toString() == res.locals.currentUser._id) {
+
+                            next();
+
+                        } else {
+                        res.redirect('back');
+                        }
+                    }
+                });     
+            });
+        } else {
+            req.flash('error', 'You need to login first');
+            res.redirect('back');
+        }
+    },
+    
     // checkCommentOwnership(req, res, next){
     //     if(req.isAuthenticated()){
     //         comment.findById(req.params.id, function(err, foundComment){

@@ -14,12 +14,12 @@ const   user = require('../model/user'),
 const storage = multer.diskStorage({
     destination: './public/uploads',
     filename: function(req, file, cb) {
-        cb(null,"FileNumber"+Date.now()+ path.extname(file.originalname));
+        cb(null,path.basename(file.originalname,path.extname(file.originalname))+'-'+Date.now()+ path.extname(file.originalname));
     }
 });
 const imageFilter = function(req, file, cb){
     var ext = path.extname(file.originalname);
-    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.docx'){
+    if(ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.docx'  && ext !== '.pdf'){
         return cb(new Error('Only image is allowed'), false)
         }
         cb(null, true);
@@ -740,20 +740,7 @@ router.get("/:id", async function (req, res) {
     // console.log(util.inspect(response, {showHidden: false, depth: null}))
     res.render("showdetail",{detail: response, moment: moment});
 })
-router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) {
-    let response = await post.aggregate([
-        {
-            $match: {
-                _id : mongoose.Types.ObjectId(req.params.id)
-            }
-        },
-    ])
-    // console.log(req.params.id)
-    // console.log(response)
-    // console.log(util.inspect(response, {showHidden: false, depth: null}))
-    res.render("editpost",{thatpost: response, moment: moment});
-})
-router.put("/:id",middleware.checkPostOwnership,upload.single('file'), async function (req, res) {
+router.put("/:id",middleware.havepermission,upload.single('file'), async function (req, res) {
     let n_title = req.body.title;
     if(req.file){
         let n_content = req.file.filename
@@ -783,7 +770,21 @@ router.put("/:id",middleware.checkPostOwnership,upload.single('file'), async fun
         }
     })
 })
-router.delete("/:id",middleware.checkPostOwnership, async function (req, res) {
+router.get("/:id/edit",middleware.checkPostOwnership, async function (req, res) {
+    let response = await post.aggregate([
+        {
+            $match: {
+                _id : mongoose.Types.ObjectId(req.params.id)
+            }
+        },
+    ])
+    // console.log(req.params.id)
+    // console.log(response)
+    // console.log(util.inspect(response, {showHidden: false, depth: null}))
+    res.render("editpost",{thatpost: response, moment: moment});
+})
+
+router.delete("/:id",middleware.havepermission, async function (req, res) {
     await post.findById(req.params.id,function(error,found){
         if(error){
             console.log(error)

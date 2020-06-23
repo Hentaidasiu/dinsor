@@ -6,10 +6,6 @@ const   user = require('../model/user'),
         subject = require('../model/subject'),
         post = require('../model/post'),
         comment = require('../model/comment');
-// router.use(function(req,res,next){
-//     res.locals.currentUser = req.user;
-//     next();
-// })
 
 router.get("/", function (req, res) {
     res.render("landing")
@@ -55,9 +51,9 @@ router.post("/register", function(req, res){
     })
 })
 /*-------------------------------------------*/
-router.get("/editprofile",middleware.isLoggedin ,function (req, res) {
-    res.render("editprofile")
-})
+// router.get("/editprofile",middleware.isLoggedin ,function (req, res) {
+//     res.render("editprofile")
+// })
 
 
 module.exports = router;
