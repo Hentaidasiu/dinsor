@@ -3,36 +3,44 @@
     <div class="post_box" style="text-align: center;">
         <h4>Result from username</h4>
     </div>
-    <% detail.forEach(function(detail){ %>
-        <div class="post_box">
-            <p class="headpostfont">Post by : <%= detail.owner_id.username %></p>
-            <p>Create date: <%= moment(detail.create_date).format("DD/MM/YYYY") %></p>
-            <p><%= detail.title %></p>
-            <% if(detail.content == "none"){ %>
-                
-            <% }else{ %>
-                <a href=<%= '../uploads/'+ detail.content %>><img  alt="<%= detail.content %>" src=<%= '../uploads/'+ detail.content %>></a>
-            <% } %>
-            <hr>
-            <a href="/dinsor/<%= detail._id %>" class="btn btn-warning">More detail</a>
-        </div>
-    <% }); %>
+    <% if (!detail[0]){ %>
+        <div class="post_box"style="text-align: center;"><h3>--No Result--</h3></div>  
+    <% }else{ %>  
+        <% detail.forEach(function(detail){ %>
+            <div class="post_box">
+                <p class="headpostfont">Post by : <%= detail.owner_id.username %></p>
+                <p>Create date: <%= moment(detail.create_date).format("DD/MM/YYYY") %></p>
+                <p><%= detail.title %></p>
+                <% if(detail.content == "none"){ %>
+                    <p>No Result</p>
+                <% }else{ %>
+                    <a href=<%= '../uploads/'+ detail.content %>><img  alt="<%= detail.content %>" src=<%= '../uploads/'+ detail.content %>></a>
+                <% } %>
+                <hr>
+                <a href="/dinsor/<%= detail._id %>" class="btn btn-warning">More detail</a>
+            </div>
+        <% }); %>
+    <% } %>
+
     <div class="post_box" style="text-align: center;">
         <h4>Result from title</h4>
     </div>
-    <% detail2.forEach(function(detail2){ %>
-        <div class="post_box">
-            <p class="headpostfont">Post by : <%= detail2.owner_id.username %></p>
-            <p>Create date: <%= moment(detail2.create_date).format("DD/MM/YYYY") %></p>
-            <p><%= detail2.title %></p>
-            <% if(detail2.content == "none"){ %>
-                
-            <% }else{ %>
-                <a href=<%= '../uploads/'+ detail2.content %>><img  alt="<%= detail2.content %>" src=<%= '../uploads/'+ detail2.content %>></a>
-            <% } %>
-            <hr>
-            <a href="/dinsor/<%= detail2._id %>" class="btn btn-warning">More detail</a>
-        </div>
-    <% }); %>
+    <% if (!detail2[0]){ %>
+        <div class="post_box"style="text-align: center;"><h3>--No Result--</h3></div>   
+    <% }else{ %>  
+        <% detail2.forEach(function(detail2){ %>
+            <div class="post_box">
+                <p class="headpostfont">Post by : <%= detail2.owner_id.username %></p>
+                <p>Create date: <%= moment(detail2.create_date).format("DD/MM/YYYY") %></p>
+                <p><%= detail2.title %></p>
+                <% if(detail2.content == "none"){ %>
+                <% }else{ %>
+                    <a href=<%= '../uploads/'+ detail2.content %>><img  alt="<%= detail2.content %>" src=<%= '../uploads/'+ detail2.content %>></a>
+                <% } %>
+                <hr>
+                <a href="/dinsor/<%= detail2._id %>" class="btn btn-warning">More detail</a>
+            </div>
+        <% }); %>
+    <% } %>   
 </div>
 <%- include("./partials/footer") %>

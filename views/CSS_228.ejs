@@ -7,24 +7,36 @@
         <form action="/dinsor/CSS_228" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Create new post here.</h5><br>
-                <input type="text" name="text" class="form-control">
-                <input type="file" name="file">
+                <div class="grid_5-95"> 
+                    <p>title :</p>
+                    <input type="text" name="text" class="form-control" placeholder="write something...">
+                </div>
+                <div class="grid_5-95"> 
+                    <p>file  : </p>
+                    <p class="time">*(only image, word & pdf)</p>
+                </div>
+                <div class="grid_5-95"> 
+                    <p></p>
+                    <input type="file" name="file">
+                </div>
+               
             </div>
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% css228DB.forEach(function(css228DB){ %>
+    <% css228DB.forEach(function(el){ %>
         <div class="post_box">
-            <p class="headpostfont">Post by : <%= css228DB.owner_id.username %></p>
-            <p>Create date: <%= moment(css228DB.create_date).format("DD/MM/YYYY") %></p>
-            <p><%= css228DB.title %></p>
-            <% if(css228DB.content == "none"){ %>
+            <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
+            <p class="time">Create date: <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
+            <hr>
+            <p><%= el.title %></p>
+            <% if(el.content == "none"){ %>
                 
             <% }else{ %>
-                <a href=<%= '../uploads/'+ css228DB.content %>><img  alt="<%= css228DB.content %>" src=<%= '../uploads/'+ css228DB.content %>></a>
+                <a target="_blank" href=<%= '../uploads/'+ el.content %>><img  alt="<%= el.content %>" src=<%= '../uploads/'+ el.content %>></a>
             <% } %>
             <hr>
-            <a href="/dinsor/<%= css228DB._id %>" class="btn btn-warning">More detail</a>
+            <a href="/dinsor/<%= el._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>
 </div>

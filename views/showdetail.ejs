@@ -4,21 +4,16 @@
         <div class="post_box">
             <div class="headpost_grid">
                 <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
-
-                <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>    
-
-                
+                <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>        
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
                     <form  action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
                         <button class="dropdown-item" type="submit">Delete</button>
                     </form>
                 </div> 
-
             </div>
-            
-            <p class="time">Create date : <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
 
+            <p class="time">Create date : <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
             <hr>
             <p><%= el.title %></p>
             <div src=<%= '../uploads/'+ el.content %>></div>
@@ -33,20 +28,10 @@
             <% } %>
 
 
-            <!-- <% if(currentUser && el.owner_id._id.toString() == currentUser._id){ %>
-                <button  type="button" class="no_edge_btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
-                    <form class="" action="/dinsor/<%= el._id._id %>?_method=DELETE" method="POST">
-                        <button class="dropdown-item" type="submit">Delete</button>
-                    </form>
-                </div> 
-            <% } %> -->
         </div>
         <% el.comment.map(function(e){ %>
             <div class="post_box comment_box ">
-                <p><span class="ib"><%= e.owner_id.username %></span> : <span><%= e.comment %></span></p>
-
+                <p style="margin: 0px;"><span class="ib"><%= e.owner_id.username %></span> : <span><%= e.comment %></span></p>
                     <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>    
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/comment/<%= e._id %>/edit" >Edit</a>

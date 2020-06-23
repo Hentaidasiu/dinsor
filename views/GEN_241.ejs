@@ -1,30 +1,42 @@
 <%- include("./partials/header") %>
 <div class="content">
     <div class="post_box" style="text-align: center;">
-        <h4>Welcome to GEN241 group</h4>
+        <h4>Welcome to GEN_241 group</h4>
     </div>
     <div class="post_box">
         <form action="/dinsor/GEN_241" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <h5>Create new post here.</h5><br>
-                <input type="text" name="text" class="form-control">
-                <input type="file" name="file">
+                <div class="grid_5-95"> 
+                    <p>title :</p>
+                    <input type="text" name="text" class="form-control" placeholder="write something...">
+                </div>
+                <div class="grid_5-95"> 
+                    <p>file  : </p>
+                    <p class="time">*(only image, word & pdf)</p>
+                </div>
+                <div class="grid_5-95"> 
+                    <p></p>
+                    <input type="file" name="file">
+                </div>
+               
             </div>
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% gen241DB.forEach(function(gen241DB){ %>
+    <% gen241DB.forEach(function(el){ %>
         <div class="post_box">
-            <p class="headpostfont">Post by : <%= gen241DB.owner_id.username %></p>
-            <p>Create date: <%= moment(gen241DB.create_date).format("DD/MM/YYYY") %></p>
-            <p><%= gen241DB.title %></p>
-            <% if(gen241DB.content == "none"){ %>
+            <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
+            <p class="time">Create date: <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
+            <hr>
+            <p><%= el.title %></p>
+            <% if(el.content == "none"){ %>
                 
             <% }else{ %>
-                <a href=<%= '../uploads/'+ gen241DB.content %>><img  alt="<%= gen241DB.content %>" src=<%= '../uploads/'+ gen241DB.content %>></a>
+                <a target="_blank" href=<%= '../uploads/'+ el.content %>><img  alt="<%= el.content %>" src=<%= '../uploads/'+ el.content %>></a>
             <% } %>
             <hr>
-            <a href="/dinsor/<%= gen241DB._id %>" class="btn btn-warning">More detail</a>
+            <a href="/dinsor/<%= el._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>
 </div>

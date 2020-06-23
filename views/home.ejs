@@ -14,14 +14,19 @@
     </div>
     <% board.forEach(function(board){ %>
         <div class="post_box">
-            <p class="headpostfont">Post by : <%= board.owner_id.username %></p>
+            <div class="headpost_grid">
+                <p class="headpostfont">Post by : <span class="ib"><%=  board.owner_id.username %> %></span></p>
+                <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>        
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dinsor/<%= board._id._id %>/edit">Edit</a>
+                    <form  action="/dinsor/<%= board._id._id %>?_method=DELETE" method="POST">
+                        <button class="dropdown-item" type="submit">Delete</button>
+                    </form>
+                </div> 
+            </div>
+            <p class="time">Create date : <%= moment(board.create_date).format("DD/MM/YYYY") %></p>
             <hr>
             <p><%= board.title %></p>
-            <!-- <a class="btn btn-warning " href="/dinsor/<%= board._id._id %>/edit">Edit</a>
-            <form class="inline" action="/dinsor/<%= board._id._id %>?_method=DELETE" method="POST">
-                <button class="btn btn-warning" type="submit">Delete</button>
-            </form> -->
-            <hr>
         </div>
     <% }); %>
 </div>

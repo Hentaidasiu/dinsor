@@ -1,6 +1,6 @@
 <%- include("./partials/header") %>
 <div class="content">
-    <div class="post_box" style="text-align: center;">
+    <div class="post_box" style="text-align: center; ">
         <h4>Welcome to CSS224 group</h4>
     </div>
     <div class="post_box">
@@ -24,27 +24,19 @@
             <button class="btn btn-warning" type="submit">Post</button>
         </form>
     </div>
-    <% css224DB.forEach(function(css224DB){ %>
+    <% css224DB.forEach(function(el){ %>
         <div class="post_box">
-            <div class="headpost_grid">
-                <p class="headpostfont">Post by : <%= css224DB.owner_id.username %></p>
-                <form action="/Index" method="POST" >
-                    <i type="button" class="dropdown-toggle-split fas fa-book" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                        <div class="dropdown-menu">
-                            
-                        </div>
-                </form>
-            </div>
-            <p class="time">Create date: <%= moment(css224DB.create_date).format("DD/MM/YYYY") %></p>
+            <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
+            <p class="time">Create date: <%= moment(el.create_date).format("DD/MM/YYYY") %></p>
             <hr>
-            <p><%= css224DB.title %></p>
-            <% if(css224DB.content == "none"){ %>
+            <p><%= el.title %></p>
+            <% if(el.content == "none"){ %>
                 
             <% }else{ %>
-                <a target="_blank" href=<%= '../uploads/'+ css224DB.content %>><img  alt="<%= css224DB.content %>" src=<%= '../uploads/'+ css224DB.content %>></a>
+                <a target="_blank" href=<%= '../uploads/'+ el.content %>><img  alt="<%= el.content %>" src=<%= '../uploads/'+ el.content %>></a>
             <% } %>
             <hr>
-            <a href="/dinsor/<%= css224DB._id %>" class="btn btn-warning">More detail</a>
+            <a href="/dinsor/<%= el._id %>" class="btn btn-warning">More detail</a>
         </div>
     <% }); %>
 </div>

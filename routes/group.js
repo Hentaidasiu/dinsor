@@ -86,7 +86,6 @@ router.post("/",middleware.isAdmin, async function (req, res) {
         subject_id : response[0]._id,
         owner_id : res.locals.currentUser._id,
         title : req.body.text,
-        content : "TEST",
         create_date : new Date()
     })
     res.redirect("/dinsor")
@@ -583,6 +582,10 @@ router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async functi
     }
     res.redirect("/dinsor/GEN_241")
 })
+router.get("/contact_us", async function (req, res) {
+    res.render('contact_us')
+})
+
 /*--------------------------------------------------------------------------------------*/
 router.get("/search", async function (req, res) {
     let searchtext = req.query.search
