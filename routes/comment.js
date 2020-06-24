@@ -24,7 +24,7 @@ router.get('/:comment_id/edit',async function (req, res) {
             }
         },
     ])
-    console.log(response)
+    // console.log(response)
     res.render("editcomment",{thatcomment: response});
 });
 router.put('/:comment_id',async function (req, res) {

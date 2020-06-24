@@ -10,19 +10,18 @@ const   express = require("express"),
     groupRoutes = require('./routes/group'),
     methodOverride = require('method-override'),
     commentRoutes = require('./routes/comment');
-    seedDB = require('./seeds'),
-    port = process.env.PORT ||3000;
+    seedDB = require('./seeds');
 const   user = require('./model/user'),
     subject = require('./model/subject'),
     post = require('./model/post'),
-    comment = require('./model/comment');
-var favicon = require('serve-favicon');
+    comment = require('./model/comment'),
+    favicon = require('serve-favicon');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
-// mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
-mongoose.connect('mongodb+srv://admin:QnxM8z3UQwoJ4pjO@dinsor-test-njgmh.mongodb.net/dinsor?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://admin:WVPkT0Oj079PS1v6@dinsor-jssgf.mongodb.net/dinsor?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true });
 /*-----------------------------------------------------------------------------------------------*/
-app.use(favicon(__dirname + '/public/image/apple-icon-120x120.png'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/public/image/favicon.ico'));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('express-session')({
@@ -70,6 +69,10 @@ app.use(function(req,res,next){
 app.use('/', indexRoutes);
 app.use('/dinsor', groupRoutes)
 app.use('/dinsor/:id/comment',commentRoutes)
-app.listen(3000, function (req, res) {
-    console.log("Server is ready")
-})
+// app.listen(3000, function (req, res) {
+//     console.log("Server is ready")
+// })
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is ready on port :${ PORT }`);
+});

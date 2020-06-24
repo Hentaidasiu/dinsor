@@ -543,7 +543,7 @@ router.get("/GEN_241", async function (req, res) {
             }
         }
     ])
-    console.log(response)
+    // console.log(response)
     res.render("GEN_241",{gen241DB: response, moment: moment});
 })
 router.post("/GEN_241",middleware.isLoggedin,upload.single('file'), async function (req, res) {
@@ -639,9 +639,9 @@ router.get("/search", async function (req, res) {
             }
         },
     ])
-    console.log(response)
-    console.log("----------------------------")
-    console.log(response2)
+    // console.log(response)
+    // console.log("----------------------------")
+    // console.log(response2)
     res.render("searchResult",{detail: response,detail2: response2, moment: moment});
 })
 /*--------------------------------------------------------------------------------------*/
