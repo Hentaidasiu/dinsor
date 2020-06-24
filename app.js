@@ -21,7 +21,7 @@ let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
 /*-----------------------------------------------------------------------------------------------*/
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(favicon(__dirname + '/public/image/apple-icon-120x120.png'));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('express-session')({
