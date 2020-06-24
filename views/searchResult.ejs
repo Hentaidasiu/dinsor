@@ -12,7 +12,7 @@
                 <p>Create date: <%= moment(detail.create_date).format("DD/MM/YYYY") %></p>
                 <p><%= detail.title %></p>
                 <% if(detail.content == "none"){ %>
-                    <p>No Result</p>
+                    
                 <% }else{ %>
                     <a href=<%= '../uploads/'+ detail.content %>><img  alt="<%= detail.content %>" src=<%= '../uploads/'+ detail.content %>></a>
                 <% } %>

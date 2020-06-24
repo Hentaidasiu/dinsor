@@ -86,6 +86,7 @@ router.post("/",middleware.isAdmin, async function (req, res) {
         subject_id : response[0]._id,
         owner_id : res.locals.currentUser._id,
         title : req.body.text,
+        content : "none",
         create_date : new Date()
     })
     res.redirect("/dinsor")
@@ -641,8 +642,8 @@ router.get("/search", async function (req, res) {
         },
     ])
     // console.log(response)
-    console.log("----------------------------")
-    console.log(response2)
+    // console.log("----------------------------")
+    // console.log(response2)
     res.render("searchResult",{detail: response,detail2: response2, moment: moment});
 })
 /*--------------------------------------------------------------------------------------*/
