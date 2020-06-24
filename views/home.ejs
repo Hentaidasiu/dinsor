@@ -5,7 +5,7 @@
     </div>
     <% board.forEach(function(board){ %>
         <% if(currentUser){ %>
-            <% if(currentUser && e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+            <% if(board.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
                 <div class="post_box">
                     <form action="/dinsor" method="POST">
                         <div class="form-group">

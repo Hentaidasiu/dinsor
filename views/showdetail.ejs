@@ -5,7 +5,7 @@
             <div class="headpost_grid">
                 <p class="headpostfont">Post by : <span class="ib"><%= el.owner_id.username %></span></p>
                 <% if(currentUser){ %>
-                    <% if(currentUser && el.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+                    <% if(el.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
                         <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>        
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/edit">Edit</a>
@@ -34,7 +34,7 @@
             <div class="post_box comment_box ">
                 <p style="margin: 0px;"><span class="ib"><%= e.owner_id.username %></span> : <span><%= e.comment %></span></p>
                     <% if(currentUser){ %>
-                        <% if(currentUser && e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+                        <% if(e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
                             <i  type="button" class="fas fa-ellipsis-v " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>    
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/dinsor/<%= el._id._id %>/comment/<%= e._id %>/edit" >Edit</a>
