@@ -3,19 +3,21 @@
     <div class="post_box" style="text-align: center;">
         <h5>Welcome to Dinsor Homepage</h5>
     </div>
-    <% if(currentUser){ %>
-        <% if(currentUser && e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
-            <div class="post_box">
-                <form action="/dinsor" method="POST">
-                    <div class="form-group">
-                        <h5>Create new post here.</h5><br>
-                        <input type="text" name="text" class="form-control" placeholder="Input text here.">
-                    </div>
-                    <button class="btn btn-warning" type="submit">Post</button>
-                </form>
-            </div>
+    <% board.forEach(function(board){ %>
+        <% if(currentUser){ %>
+            <% if(currentUser && e.owner_id._id.toString() == currentUser._id || currentUser.permission == "admin"){ %>
+                <div class="post_box">
+                    <form action="/dinsor" method="POST">
+                        <div class="form-group">
+                            <h5>Create new post here.</h5><br>
+                            <input type="text" name="text" class="form-control" placeholder="Input text here.">
+                        </div>
+                        <button class="btn btn-warning" type="submit">Post</button>
+                    </form>
+                </div>
+            <% } %>
         <% } %>
-    <% } %>
+    <% }); %>
     <% board.forEach(function(board){ %>
         <div class="post_box">
             <div class="headpost_grid">
