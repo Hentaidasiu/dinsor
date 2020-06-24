@@ -11,16 +11,17 @@ const   express = require("express"),
     methodOverride = require('method-override'),
     commentRoutes = require('./routes/comment');
     seedDB = require('./seeds'),
-    port = process.env.PORT || 3000;
+    port = process.env.PORT ||3000;
 const   user = require('./model/user'),
     subject = require('./model/subject'),
     post = require('./model/post'),
     comment = require('./model/comment');
+var favicon = require('serve-favicon');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
 mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
 /*-----------------------------------------------------------------------------------------------*/
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('express-session')({
