@@ -19,7 +19,8 @@ const   user = require('./model/user'),
 var favicon = require('serve-favicon');
 let app = express()
 /*-----------------------------------------------------------------------------------------------*/
-mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/dinsor', {useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://admin:QnxM8z3UQwoJ4pjO@dinsor-test-njgmh.mongodb.net/dinsor?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true });
 /*-----------------------------------------------------------------------------------------------*/
 app.use(favicon(__dirname + '/public/image/apple-icon-120x120.png'));
 app.set("view engine", "ejs")
