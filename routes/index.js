@@ -25,7 +25,7 @@ router.post("/login", passport.authenticate('local',{
 router.get("/logout", function (req, res) {
     req.logout()
     req.flash('success','You log out success')
-    console.log("log out success")
+    // console.log("log out success")
     res.redirect("/dinsor")
 })
 /*-------------------------------------------*/
