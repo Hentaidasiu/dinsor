@@ -589,6 +589,7 @@ router.get("/contact_us", async function (req, res) {
 /*--------------------------------------------------------------------------------------*/
 router.get("/search", async function (req, res) {
     let searchtext = req.query.search
+    let keyword = new RegExp(searchtext, 'i')
     let response = await post.aggregate([
         {
             $lookup:
@@ -610,7 +611,7 @@ router.get("/search", async function (req, res) {
         },
         {
             $match: {
-                "owner_id.username" : searchtext
+                "owner_id.username" : {$regex: keyword}
             }
         },
     ])
@@ -635,13 +636,13 @@ router.get("/search", async function (req, res) {
         },
         {
             $match: {
-                "title" : searchtext
+                "title" : {$regex: keyword}
             }
         },
     ])
     // console.log(response)
-    // console.log("----------------------------")
-    // console.log(response2)
+    console.log("----------------------------")
+    console.log(response2)
     res.render("searchResult",{detail: response,detail2: response2, moment: moment});
 })
 /*--------------------------------------------------------------------------------------*/
